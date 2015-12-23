@@ -1,0 +1,20 @@
+{
+    "name":"Azurion-ECS",
+    "version":"0.0.1",
+    "description": "The Entity Component System for javascript",
+    "licence": "UNLICENSED",
+    "private": false,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/episanchez/Azurion-ECS.git"
+    },
+    "bugs": {
+        "url": "https://github.com/episanchez/Azurion-ECS/issues"
+    },
+    "dependencies":{
+    },
+    "devDependencies": {
+        "should": "3.3.1",
+        "mocha": ">=0.0.1"
+    }
+}
