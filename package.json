@@ -13,6 +13,7 @@
         "url": "https://github.com/episanchez/Azurion-ECS/issues"
     },
     "dependencies":{
+        "winston" : "2.1.1"
     },
     "devDependencies": {
         "should": "3.3.1",
