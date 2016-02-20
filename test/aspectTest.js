@@ -1,13 +1,25 @@
 var should = require('should');
 
+var World = require('../lib/world');
 var Aspect = require('../lib/aspect/aspect');
+var EntitySubscription = require('../lib/aspect/entitySubscription');
 var Entity = require('../lib/entity');
 var ComponentType = require('../lib/component/componentType');
 
 describe('AspectTest', function() {
+  /**
+   * mock data
+   */
   var aspect1 = new Aspect();
   var aspect2 = new Aspect();
+  
   var entity1 = new Entity(null, 0);
+  var entity2 = new Entity(null, 1);
+  var entity3 = new Entity(null, 2);
+
+  entity2._ComponentsSet = [1,2,3];
+  entity3._ComponentsSet = [2,3,4];
+
   describe('#Aspect Regression Test', function() {
     it ('Aspect Object should be created', function(done){
     	should.exist(aspect1);
@@ -31,14 +43,41 @@ describe('AspectTest', function() {
     	entity1._ComponentsSet = [2,3,5];
 
     	(aspect1.isInterested(entity1)).should.be.equal(false);
+    	(aspect1.isInterested(entity2)).should.be.equal(true);
+    	(aspect1.isInterested(entity3)).should.be.equal(false);
+
     	(aspect2.isInterested(entity1)).should.be.equal(true);
+    	(aspect2.isInterested(entity3)).should.be.equal(false);
     	done();
     });
   });
+
+  var world = new World();
   describe('#EntitySubscription Test', function(){
+  	var entitySubscription1 = new EntitySubscription(world, aspect1);
+
+  	it ('EntitySubscription Object should be created', function(done){
+  		should.exist(entitySubscription1);
+  		should.exist(entitySubscription1.checkEntity);
+  		should.exist(entitySubscription1.informEntityChanges);
+  		should.exist(entitySubscription1.process);
+  		should.exist(entitySubscription1.addSubscriptionListener);
+  		done();
+  	});
+
+  	it ('Entity2 should be inserted', function(done){
+  		//console.log('allSet : ' + entitySubscription1.aspect.allSet);
+  		//console.log('entity set : ' + entity2._ComponentsSet);
+  		entitySubscription1.checkEntity(entity1);
+  		entitySubscription1.checkEntity(entity2);
+  		entitySubscription1.checkEntity(entity3);
+
+  		entitySubscription1.should.have.properties({activeEntitiesId: [1], insertedIds: [1]});
+  		done();
+  	});
   	//todo
   });
-  describe('#AspectSubscription Test', function(){
+  describe('#AspectSubscriptionManager Test', function(){
   	//todo
   });
 });

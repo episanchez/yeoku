@@ -60,9 +60,6 @@ describe('Component Part Test', function() {
 
       (en['BasicComp']).should.have.properties({life : 0, mana : 0});
       (en['ExtendComp']).should.have.properties({strength : 0, magic : 0});
-      console.log(en);
-      en = {};
-      console.log(en);
       done();
     });
 
