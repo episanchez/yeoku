@@ -153,9 +153,6 @@ describe('AspectTest', function() {
       done();
     });
 
-    it('Process should be worked', function(done){
-      done();
-    });
   	//todo
   });
 });
