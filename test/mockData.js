@@ -3,6 +3,8 @@ var ComponentType = require('../lib/component/componentType');
 var Component = require('../lib/component/component');
 var util = require('util');
 
+var IteratingSystem = require('../lib/system/iteratingSystem');
+var IntervalIteratingSystem = require('../lib/system/intervalIteratingSystem');
 var exp = module.exports;
 
 /**
@@ -59,12 +61,41 @@ ExtendComp.prototype.getMagic = function(){
 
 util.inherits(ExtendComp, Component);
 
-/**
- * Components With ComponentManager
- */
-
 
 /**
- * Entities for Testing
+ * Systems Example
  */
 
+var BasicSystem = exp.BasicSystem = function(){
+	IteratingSystem.call(this);
+
+	this._name = "BasicSystem";
+};
+
+util.inherits(BasicSystem, IteratingSystem);
+
+BasicSystem.prototype.initialize = function(){
+	this.buildAspectWithComponentsTypeName(["BasicComp"], [], ["ExtendComp"]);
+	IteratingSystem.prototype.initialize.call(this);
+};
+
+BasicSystem.prototype.processEntity = function(entity){
+
+};
+
+var ExtendSystem = exp.ExtendSystem = function(){
+	IntervalIteratingSystem.call(this, 100);
+
+	this._name = "ExtendSystem";
+};
+
+util.inherits(ExtendSystem, IntervalIteratingSystem);
+
+ExtendSystem.prototype.initialize = function(){
+	this.buildAspectWithComponentsTypeName(["ExtendComp"], [], ["BasicComp"]);
+
+	IntervalIteratingSystem.prototype.initialize.call(this);
+};
+ExtendSystem.prototype.processEntity = function(entity){
+
+};

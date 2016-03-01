@@ -3,6 +3,9 @@ var should = require('should');
 var World = require('../lib/world');
 var EntityManager = require('../lib/manager/entityManager');
 
+var mockData = require('./mockData');
+
+
 describe('WorldTest', function() {
   var mWorld = new World();
   describe('#initWorld', function() {
@@ -46,6 +49,50 @@ describe('WorldTest', function() {
     });
 
     // add and remove a system
+  });
+
+  describe('#ManageSystem', function(){
+
+    it('add a system should be worked', function(done){
+      mWorld.addSystem("BasicSystem", new mockData.BasicSystem());
+      mWorld.addSystem("ExtendSystem", new mockData.ExtendSystem());
+      var systems = mWorld.getSystems();
+
+      should.exist(systems);
+      should.exist(systems["BasicSystem"]);
+      should.exist(systems["ExtendSystem"]);
+
+      should.exist(systems["BasicSystem"].process);
+      should.exist(systems["BasicSystem"].processSystem);
+      should.exist(systems["BasicSystem"].initialize);
+      should.exist(systems["BasicSystem"].processEntity);
+      should.exist(systems["ExtendSystem"].processEntity);
+      done();
+    });
+
+    it('get a system should be worked', function(done){
+      var bsys = mWorld.getSystem("BasicSystem", mockData.BasicSystem);
+      var esys = mWorld.getSystem("ExtendSystem", mockData.ExtendSystem);
+
+      should.exist(bsys);
+      should.exist(esys);
+      bsys.should.have.property('_name', 'BasicSystem');
+      esys.should.have.property('_name', 'ExtendSystem');
+      done();
+    });
+
+    it('remove a system should be worked', function(done){
+      mWorld.removeSystem('BasicSystem');
+
+      should.not.exist(mWorld.getSystem('BasicSystem'));
+      should.exist(mWorld.getSystem('ExtendSystem'));
+      done();
+    });
+
+    it('process system should be worked', function(done){
+      mWorld.process();
+      done();
+    });
   });
 
 });
