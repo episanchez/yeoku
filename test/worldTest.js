@@ -90,6 +90,12 @@ describe('WorldTest', function() {
     });
 
     it('process system should be worked', function(done){
+      mWorld.componentManager.create('BasicComp', mockData.BasicComp);
+      mWorld.componentManager.create('ExtendComp', mockData.ExtendComp);
+      mWorld.process();
+      mWorld.em.createEntity();
+      var entity = mWorld.em.getEntityById(1);
+      entity.addComponent('BasicComp');
       mWorld.process();
       done();
     });
