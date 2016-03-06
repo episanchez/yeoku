@@ -80,7 +80,7 @@ BasicSystem.prototype.initialize = function(){
 };
 
 BasicSystem.prototype.processEntity = function(entity){
-
+	console.log('basic system : ' + entity );
 };
 
 var ExtendSystem = exp.ExtendSystem = function(){

@@ -69,7 +69,7 @@ describe('AspectTest', function() {
   });
 
   describe('#EntitySubscription Test', function(){
-  	var entitySubscription1 = new EntitySubscription(aspect1);
+  	var entitySubscription1 = new EntitySubscription(aspect1, null);
 
   	it ('EntitySubscription Object should be created', function(done){
   		should.exist(entitySubscription1);

@@ -66,6 +66,11 @@ describe('WorldTest', function() {
       should.exist(systems["BasicSystem"].processSystem);
       should.exist(systems["BasicSystem"].initialize);
       should.exist(systems["BasicSystem"].processEntity);
+      should.exist(systems["BasicSystem"].inserted);
+      should.exist(systems["BasicSystem"].removed);
+      should.exist(systems["BasicSystem"].insert);
+      should.exist(systems["BasicSystem"].remove);
+
       should.exist(systems["ExtendSystem"].processEntity);
       done();
     });
@@ -78,6 +83,7 @@ describe('WorldTest', function() {
       should.exist(esys);
       bsys.should.have.property('_name', 'BasicSystem');
       esys.should.have.property('_name', 'ExtendSystem');
+      console.log(bsys);
       done();
     });
 
