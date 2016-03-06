@@ -1,5 +1,5 @@
-# Azurion-ECS
-An Entity-Component-System(ECS) in javascript
+# Yeoku
+Yeoku is an Entity-Component-System(ECS) in javascript
 
 ## Todo
 
