@@ -92,7 +92,7 @@ describe('AspectTest', function() {
     var vInsertedIds = [];
     var vRemovedIds = [];
     it ('Listener should be added', function(done){
-      entitySubscription1.addSubscriptionListener({inserted : function(ids){ vInsertedIds = ids; console.log('listener inserted'); } , removed : function (ids){ vRemovedIds = ids; console.log('listener removed'); } });
+      entitySubscription1.addSubscriptionListener({inserted : function(ids){ vInsertedIds = ids; } , removed : function (ids){ vRemovedIds = ids; } });
 
       (entitySubscription1.listeners.length).should.be.equal(1);
       should.exist(entitySubscription1.listeners[0].removed);
@@ -104,10 +104,7 @@ describe('AspectTest', function() {
       entitySubscription1.activeEntitiesId = [0,1,2,3,4,5,6];
       entitySubscription1.insertedIds = [];
 
-      console.log(entitySubscription1.activeEntitiesId);
-
       entitySubscription1.process([1,2,4], [3,5,6]);
-      console.log(vInsertedIds + '  -  ' + vRemovedIds);
       vInsertedIds.should.be.eql([1,2,4]);
       vRemovedIds.should.be.eql([3,5,6]);
 

@@ -80,11 +80,13 @@ BasicSystem.prototype.initialize = function(){
 };
 
 BasicSystem.prototype.processEntity = function(entity){
-	console.log('basic system : ' + entity );
+	var eObj = this.world.em.getEntityById(entity);
+	eObj.BasicComp.mana = 42;
+	eObj.BasicComp.life = 42;
 };
 
 var ExtendSystem = exp.ExtendSystem = function(){
-	IntervalIteratingSystem.call(this, 100);
+	IntervalIteratingSystem.call(this, 1);
 
 	this._name = "ExtendSystem";
 };
@@ -93,9 +95,10 @@ util.inherits(ExtendSystem, IntervalIteratingSystem);
 
 ExtendSystem.prototype.initialize = function(){
 	this.buildAspectWithComponentsTypeName(["ExtendComp"], [], ["BasicComp"]);
-
 	IntervalIteratingSystem.prototype.initialize.call(this);
 };
 ExtendSystem.prototype.processEntity = function(entity){
-
+	var eObj = this.world.em.getEntityById(entity);
+	eObj.ExtendComp.setMagic(42);
+	eObj.ExtendComp.setStrength(42);
 };

@@ -8,6 +8,9 @@ var mockData = require('./mockData');
 
 describe('WorldTest', function() {
   var mWorld = new World();
+  mWorld.componentManager.create('BasicComp', mockData.BasicComp);
+  mWorld.componentManager.create('ExtendComp', mockData.ExtendComp);
+
   describe('#initWorld', function() {
     it('mWorld should exist', function(done) {
       	should.exist(mWorld);
@@ -83,26 +86,25 @@ describe('WorldTest', function() {
       should.exist(esys);
       bsys.should.have.property('_name', 'BasicSystem');
       esys.should.have.property('_name', 'ExtendSystem');
-      console.log(bsys);
       done();
     });
 
     it('remove a system should be worked', function(done){
-      mWorld.removeSystem('BasicSystem');
+      mWorld.removeSystem('ExtendSystem');
 
-      should.not.exist(mWorld.getSystem('BasicSystem'));
-      should.exist(mWorld.getSystem('ExtendSystem'));
+      should.exist(mWorld.getSystem('BasicSystem'));
+      should.not.exist(mWorld.getSystem('ExtendSystem'));
       done();
     });
 
     it('process system should be worked', function(done){
-      mWorld.componentManager.create('BasicComp', mockData.BasicComp);
-      mWorld.componentManager.create('ExtendComp', mockData.ExtendComp);
       mWorld.process();
       mWorld.em.createEntity();
       var entity = mWorld.em.getEntityById(1);
       entity.addComponent('BasicComp');
       mWorld.process();
+
+      (entity.BasicComp).should.have.properties({'life': 42, 'mana' : 42});
       done();
     });
   });
