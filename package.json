@@ -1,22 +1,22 @@
 {
-    "name":"yeoku",
-    "version":"0.0.1",
-    "description": "Entity Component System for javascript",
-    "licence": "UNLICENSED",
-    "main": "./index.js",
-    "private": false,
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/episanchez/yeoku.git"
-    },
-    "bugs": {
-        "url": "https://github.com/episanchez/yeoku/issues"
-    },
-    "dependencies":{
-        "winston" : "2.1.1"
-    },
-    "devDependencies": {
-        "should": "3.3.1",
-        "mocha": ">=0.0.1"
-    }
+  "name": "yeoku",
+  "version": "0.0.2",
+  "description": "Entity Component System for javascript",
+  "licence": "UNLICENSED",
+  "main": "./index.js",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/episanchez/yeoku.git"
+  },
+  "bugs": {
+    "url": "https://github.com/episanchez/yeoku/issues"
+  },
+  "dependencies": {
+    "winston": "2.1.1"
+  },
+  "devDependencies": {
+    "should": "3.3.1",
+    "mocha": ">=0.0.1"
+  }
 }
