@@ -7,9 +7,6 @@ var IteratingSystem = require('../lib/system/iteratingSystem');
 var IntervalIteratingSystem = require('../lib/system/intervalIteratingSystem');
 var exp = module.exports;
 
-/**
- * Components without ComponentManager (it is not compatible with ComponentManager)
- */
 
 // bad Component
 exp.BasicComp = function(){
