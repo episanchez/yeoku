@@ -42,7 +42,7 @@ var ComponentType = require('yeoku').ComponentType;
 var util = require('util');
 
 var TestComponent = function(){
-	BaseComponent.call(new ComponentType(0, 'testComponent, this)); // params {id, name, copy of the component}	
+	BaseComponent.call(new ComponentType(0, 'testComponent', this)); // params {id, name, copy of the component}	
 
 	this.intData = 0;
 	this.rawData = null;
@@ -153,10 +153,10 @@ ExampleSystem.prototype.processEntity(entity){
 };
 
 module.exports = ExampleSystem;
-```javascript
+```
 
 *registration of your system and process it :
-```
+```javascript
 var ExampleSystem = require('./exampleSystem');
 var TestComponent = require('./testComponent');
 
