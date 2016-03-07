@@ -11,14 +11,14 @@ npm install yeoku
 
 ### World
 
-The world is a main piece of the framework, this one contains your entities, your systems and your components
+The world is a main piece of the framework, this one contains your entities, your systems and your components.
 
-Upon the world instanciation, all systems and managers initialized
+Upon the world instanciation, all systems and managers initialized.
 
 #### Processing World
 
 In this case, we process the world every 100 miliseconds
-```
+```javascript
 var world1 = new World();
 
 while (42){
@@ -35,7 +35,7 @@ Components are a pure data classes (getter/setter) with optionally some helpers 
 
 If you want to create your own Component, you have to inherit from 'yeoku.Component' and create a component Type related to this class.
 
-```
+```javascript
 // testComponent.js
 var BaseComponent = require('yeoku').Component;
 var ComponentType = require('yeoku').ComponentType;
@@ -73,7 +73,7 @@ module.exports = TestComponents;
 
 You have to use the ComponentManager, this one has a array of your Component Classes and a double array of the componentType by entities.
 
-```
+```javascript
 var TestComponent = require('./testComponent');
 
 world.getComponentManager().create("testComponent", TestComponent); // params {name, Component Class}
@@ -92,13 +92,13 @@ Entity are containers of related components.
 Entities managed by EntityManager, this one could be created it, deleted it. 
 Each entity has a copy of ComponentsManager, with this one, you can add/delete a component to the entity.
 
-```
+```javascript
 world.getEntityManager().createEntity();
 ```
 
 #### Add/delete Component to the Entity
 
-```
+```javascript
 world.getEntityManager.createEntity();
 
 var soldier = world.getEntityManager().getEntityById(0); // Give the entity last created
@@ -126,7 +126,7 @@ Systems encapsulate game logic, typically operating on a family of entities.
 
 *your own system : 
 
-```
+```javascript
 // exampleSystem.js : This system inherits from iteratingSystem
 
 var IteratingSystem = require('yeoku').IteratingSystem;
@@ -153,7 +153,7 @@ ExampleSystem.prototype.processEntity(entity){
 };
 
 module.exports = ExampleSystem;
-```
+```javascript
 
 *registration of your system and process it :
 ```
@@ -163,14 +163,31 @@ var TestComponent = require('./testComponent');
 var testWorld = new World();
 
 // you need to add your Components before your systems
-testWorld.getComponentManager().addComponent("TestComponent", TestComponent)
+testWorld.getComponentManager().addComponent("TestComponent", TestComponent);
 
+// Add your system
 testWorld.addSystem("ExampleSystem", ExampleSystem); // param {name, class}
+
+// add an Entity with its components
+testWorld.getEntityManager().create();
+var soldier = world.getEntityManager().getEntityById(0); // Give the entity last created
+soldier.addComponent("BasicComponent");
+
+// process World (this one process all your system)
+testWorld.process();
+
+soldier.BasicComponent.getIntData(); // result : 42
+soldier.BasicComponent.getRawData(); // result : "42"
 ```
 
 #### Skip Processing
 
 Override checkProcessing to return false if you want to skip the system during processing.
+
+### Aspect
+
+Aspects match Entities based on a Component pattern, defining the type of entities a system is interested in. Instead of thinking of systems processing entities, they rather process aspects of entities.
+
 
 ## Todo
 
