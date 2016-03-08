@@ -4,7 +4,7 @@ var mocha = require('gulp-mocha');
 
 gulp.task('doc', function (cb) {
     var config = require('./conf.json');
-    gulp.src(['README.md', './lib/**/*.js'], {read: false})
+    gulp.src(['README.md','./lib/**/*.js'], {read: false})
         .pipe(jsdoc(config, cb));
 });
 
