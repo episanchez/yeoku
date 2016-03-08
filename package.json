@@ -2,7 +2,7 @@
   "name": "yeoku",
   "version": "0.0.2",
   "description": "Entity Component System for javascript",
-  "licence": "UNLICENSED",
+  "licence": "MIT",
   "main": "./index.js",
   "private": false,
   "repository": {
@@ -17,6 +17,8 @@
   },
   "devDependencies": {
     "should": "3.3.1",
-    "mocha": ">=0.0.1"
+    "mocha": ">=0.0.1",
+    "gulp" : "3.9.1",
+    "gulp-jsdoc3": "0.2.0"
   }
 }
