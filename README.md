@@ -1,6 +1,8 @@
 # Yeoku
 Yeoku is an Entity-Component-System(ECS) framework in javascript based on Artemis-odb (https://github.com/junkdog/artemis-odb).
 
+API Documentation : http://episanchez.github.io/yeoku/
+
 ## Installation
 
 ```
@@ -193,4 +195,3 @@ Aspects match Entities based on a Component pattern, defining the type of entiti
 
 - Entity Archetype
 - Implement should sync entity system and delayed systems
-- Generate a API documentation and put more comments.
