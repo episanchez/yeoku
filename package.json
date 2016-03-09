@@ -2,7 +2,7 @@
   "name": "yeoku",
   "version": "0.0.3",
   "description": "Entity Component System for javascript",
-  "licence": "MIT",
+  "license": "MIT",
   "main": "./index.js",
   "private": false,
   "repository": {
