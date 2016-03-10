@@ -2,6 +2,9 @@
 	"tags": {
 		"allowUnknownTags" : true
 	},
+	"opts": {
+		"destination" : "./doc"
+		},
 	"plugins": ["plugins/markdown"],
 	"templates": {
 		"cleverLinks": true,
@@ -16,7 +19,7 @@
 			"title": "Yeoku - ECS Framework",
 			"type": "website",
 			"image": "",
-			"site_name": "",
+			"site_name": "Yeoku - ECS Framework",
 			"url": ""
 		},
 		"meta": {
@@ -26,9 +29,10 @@
 		},
 		"linenums": false
 	},
+
 	"markdown": {
 		"parser": "gfm",
 		"hardwrap": true,
 		"tags": ["examples"]
-	}
+	},
 }
