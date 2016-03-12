@@ -1,5 +1,7 @@
 module.exports = {
     World    : require('./lib/world'),
+    WorldBuilder : require('./lib/worldBuilder'),
+    WorldConfiguration : require('./lib/worldConfiguration'),
     Entity : require('./lib/entity'),
  	Aspect : require('./lib/aspect/aspect'),
  	EntitySubscription : require('./lib/aspect/entitySubscription'),
