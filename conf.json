@@ -34,5 +34,5 @@
 		"parser": "gfm",
 		"hardwrap": true,
 		"tags": ["examples"]
-	},
+	}
 }
