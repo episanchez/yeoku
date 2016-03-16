@@ -1,0 +1,30 @@
+{
+	"FileName":"WorldConf",
+	"Version": 0.1,
+
+	"ComponentsTypes": [
+		{
+			"name": "BasicComp",
+			"type": "Module",
+			"path": "../mockData"
+		},
+		{
+			"name": "ExtendComp",
+			"type": "Module",
+			"path": "../mockData"
+		}
+	],
+	"Systems": [
+		{
+			"name" : "BasicSystem",
+			"type": "Module",
+			"path": "../mockData"
+		},
+		{
+			"name" : "ExtendSystem",
+			"type": "Module",
+			"path" : "../mockData"
+		}
+	],
+	"OptManagers":[]
+}
