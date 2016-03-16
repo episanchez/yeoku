@@ -1,10 +1,19 @@
 var should = require('should');
 
 var World = require('../lib/world');
+var WorldConfiguration = require('../lib/worldConfiguration');
+var WorldBuilder = require('../lib/worldBuilder');
 var EntityManager = require('../lib/manager/entityManager');
 
 var mockData = require('./mockData');
 
+function sleep(time, callback) {
+    var stop = new Date().getTime();
+    while(new Date().getTime() < stop + time) {
+        ;
+    }
+    callback();
+}
 
 describe('WorldTest', function() {
   var mWorld = new World();
@@ -50,8 +59,34 @@ describe('WorldTest', function() {
       uid.should.be.equal(1);
       done();
     });
+  });
 
-    // add and remove a system
+  describe('#WorldConfiguration/Builder', function(){
+    var wc = new WorldConfiguration();
+    it('WorldConfiguration : Load From Arrays', function(done){
+      wc.LoadConfFromArrays([mockData.ExtendComp], [new mockData.BasicSystem(), new mockData.ExtendSystem()], []);
+      var testWorld = WorldBuilder.BuildWithWorldConfiguration(wc);
+      should.exist(testWorld);
+      should.exist(testWorld.getSystem('BasicSystem'));
+      should.exist(testWorld.getSystem('ExtendSystem'));
+      should.exist(testWorld.getComponentManager().getComponentTypeByName('ExtendComp'));
+      testWorld.getComponentManager().getComponentTypeByName('ExtendComp').should.have.properties({'strength': 0, 'magic' : 0});
+      done();
+    });
+    it ('WorldConfiguration : Load From Configuration File', function(done){
+      wc.clean();
+      wc.LoadConfFromFile(__dirname + '/conf/worldConf.json');
+
+      var testWorld = WorldBuilder.BuildWithWorldConfiguration(wc);
+      should.exist(testWorld);
+
+      should.exist(testWorld.getSystem('BasicSystem'));
+      should.exist(testWorld.getSystem('ExtendSystem'));
+
+      // testWorld.getComponentManager().getComponentTypeByName('BasicComp').should.have.properties({'life': 0, 'mana' : 0});
+      // testWorld.getComponentManager().getComponentTypeByName('ExtendComp').should.have.properties({'strength': 0, 'magic' : 0});
+      done();
+    });
   });
 
   describe('#ManageSystem', function(){
@@ -105,6 +140,15 @@ describe('WorldTest', function() {
       mWorld.process();
 
       (entity.BasicComp).should.have.properties({'life': 42, 'mana' : 42});
+      done();
+    });
+    it ('intervalSystem process should be worked', function(done){
+      mWorld.addSystem("ExtendSystem", new mockData.ExtendSystem());
+
+      var entity = mWorld.em.getEntityById(0);
+      entity.addComponent('ExtendComp');
+      var entity = mWorld.em.getEntityById(0);
+      (entity.ExtendComp).should.have.property('magic', '10');
       done();
     });
   });

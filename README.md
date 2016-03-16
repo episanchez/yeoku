@@ -193,7 +193,7 @@ Aspects match Entities based on a Component pattern, defining the type of entiti
 
 ## Todo
 
-- Entity Archetype
+- Entity Archetype (Build with componentManager in the World or with Component Class)
 - Implement should sync entity system and delayed systems
 
 ##License

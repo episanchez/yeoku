@@ -56,6 +56,10 @@ ExtendComp.prototype.getMagic = function(){
 	return this.magic;
 };
 
+ExtendComp.prototype.incMagic = function(inc){
+	this.magic += 1;
+}
+
 util.inherits(ExtendComp, Component);
 
 
@@ -96,6 +100,5 @@ ExtendSystem.prototype.initialize = function(){
 };
 ExtendSystem.prototype.processEntity = function(entity){
 	var eObj = this.world.em.getEntityById(entity);
-	eObj.ExtendComp.setMagic(42);
-	eObj.ExtendComp.setStrength(42);
+	eObj.ExtendComp.incMagic(1);
 };
