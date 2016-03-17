@@ -9,6 +9,7 @@ gulp.task('doc', function (cb) {
 });
 
 gulp.task('mocha', () => {
+    require('app-module-path').addPath(__dirname + '/lib');
     return gulp.src('test/*.js')
         .pipe(mocha())
         .once('error', () => {

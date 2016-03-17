@@ -1,10 +1,10 @@
 var should = require('should');
 
-var World = require('../lib/world');
-var Aspect = require('../lib/aspect/aspect');
-var EntitySubscription = require('../lib/aspect/entitySubscription');
-var Entity = require('../lib/entity');
-var ComponentType = require('../lib/component/componentType');
+var World = require('world');
+var Aspect = require('aspect/aspect');
+var EntitySubscription = require('aspect/entitySubscription');
+var Entity = require('entity');
+var ComponentType = require('component/componentType');
 
 describe('AspectTest', function() {
   /**

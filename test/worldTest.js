@@ -1,9 +1,9 @@
 var should = require('should');
 
-var World = require('../lib/world');
-var WorldConfiguration = require('../lib/worldConfiguration');
-var WorldBuilder = require('../lib/worldBuilder');
-var EntityManager = require('../lib/manager/entityManager');
+var World = require('world');
+var WorldConfiguration = require('worldConfiguration');
+var WorldBuilder = require('worldBuilder');
+var EntityManager = require('manager/entityManager');
 
 var mockData = require('./mockData');
 

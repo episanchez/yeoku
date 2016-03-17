@@ -1,10 +1,10 @@
 var should = require('should');
 
-var Component = require('../lib/component/component');
-var ComponentType = require('../lib/component/componentType');
-var ComponentManager = require('../lib/manager/componentManager');
+var Component = require('component/component');
+var ComponentType = require('component/componentType');
+var ComponentManager = require('manager/componentManager');
+var Entity = require('entity');
 
-var Entity = require('../lib/entity');
 var mockData = require('./mockData');
 
 describe('Component Part Test', function() {

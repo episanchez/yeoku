@@ -1,14 +1,16 @@
+require('app-module-path').addPath(__dirname + '/lib');
+
 module.exports = {
-    World    : require('./lib/world'),
-    WorldBuilder : require('./lib/worldBuilder'),
-    WorldConfiguration : require('./lib/worldConfiguration'),
-    Entity : require('./lib/entity'),
- 	Aspect : require('./lib/aspect/aspect'),
- 	EntitySubscription : require('./lib/aspect/entitySubscription'),
- 	Component : require('./lib/component/component'),
+    World    : require('world'),
+    WorldBuilder : require('worldBuilder'),
+    WorldConfiguration : require('worldConfiguration'),
+    Entity : require('entity'),
+ 	Aspect : require('aspect/aspect'),
+ 	EntitySubscription : require('aspect/entitySubscription'),
+ 	Component : require('component/component'),
  	ComponentType : require('./lib/component/componentType'),
- 	Manager : require('./lib/manager/manager'),
-    BaseSystem    : require('./lib/system/baseSystem'),
-    IntervalSystem : require('./lib/system/intervalSystem'),
-    IteratingSystem : require('./lib/system/iteratingSystem')
+ 	Manager : require('manager/manager'),
+    BaseSystem    : require('system/baseSystem'),
+    IntervalSystem : require('system/intervalSystem'),
+    IteratingSystem : require('system/iteratingSystem')
 };

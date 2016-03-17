@@ -1,10 +1,11 @@
-var Aspect = require('../lib/aspect/aspect');
-var ComponentType = require('../lib/component/componentType');
-var Component = require('../lib/component/component');
+
+var Aspect = require('aspect/aspect');
+var ComponentType = require('component/componentType');
+var Component = require('component/component');
 var util = require('util');
 
-var IteratingSystem = require('../lib/system/iteratingSystem');
-var IntervalIteratingSystem = require('../lib/system/intervalIteratingSystem');
+var IteratingSystem = require('system/iteratingSystem');
+var IntervalIteratingSystem = require('system/intervalIteratingSystem');
 var exp = module.exports;
 
 
