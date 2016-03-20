@@ -268,6 +268,11 @@ testWorld.getComponentManager().getComponentTypeByName('NewComponent'); // shoul
 ##### Configuration File
 
 Specify all your componentsTypes, systems and managers with their type and path.
+
+For The type argument : 
+- Class : Only one object by file
+- Module : Several Objects by file 
+
 Example configuration file :
 ```json
 {
@@ -277,7 +282,7 @@ Example configuration file :
 	"ComponentsTypes": [
 		{
 			"name": "OldComponent",
-			"type": "Module", // Class : Only one object by file, Module : Several Objects by file
+			"type": "Module",
 			"path": "./components"
 		},
 		{
@@ -299,7 +304,7 @@ Example configuration file :
 
 ##### Build with the configuration file
 
-```
+```javascript
 wc = new WorldConfiguration();
 wc.LoadConfFromFile(__dirname + '/conf/worldConf.json');
 var testWorld = WorldBuilder.BuildWithWorldConfiguration(wc);
