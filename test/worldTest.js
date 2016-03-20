@@ -72,7 +72,6 @@ describe('WorldTest', function() {
       var entity = mWorld.em.getEntityById(0);
       entity.addComponent('WarriorComp');
 
-      console.log(entity.WarriorComp);
       should.exist(testWorld.getComponentManager().getComponentTypeByName('WarriorComp'));
       (entity.WarriorComp).should.have.properties({'heresy': 0, 'combo' : 0});
       entity.removeComponent('WarriorComp');
@@ -84,9 +83,6 @@ describe('WorldTest', function() {
 
       var testWorld = WorldBuilder.BuildWithWorldConfiguration(wc);
       should.exist(testWorld);
-
-      should.exist(testWorld.getSystem('BasicSystem'));
-      should.exist(testWorld.getSystem('ExtendSystem'));
 
       done();
     });

@@ -21,6 +21,8 @@ Upon the world instanciation, all systems and managers initialized.
 
 In this case, we process the world every 100 miliseconds
 ```javascript
+var World = require('yeoku').World;
+
 var world1 = new World();
 
 while (42){
@@ -38,51 +40,100 @@ Components are a pure data classes (getter/setter) with optionally some helpers 
 If you want to create your own Component, you have to inherit from 'yeoku.Component' and create a component Type related to this class.
 
 ```javascript
-// testComponent.js
+// components.js
 var BaseComponent = require('yeoku').Component;
 var ComponentType = require('yeoku').ComponentType;
 var util = require('util');
 
-var TestComponent = function(){
-	BaseComponent.call(new ComponentType(0, 'testComponent', this)); // params {id, name, copy of the component}	
+var exp = module.exports;
+/**
+ * Deprecated (<= 0.0.3)
+ */
+var OldComponent = exp.OldComponent =  function(){
+	BaseComponent.call(this, new ComponentType(0, 'OldComponent', this)); // params {id, name, copy of the component}	
 
 	this.intData = 0;
 	this.rawData = null;
 };
 
-util.inherits(TestComponent, BaseComponent);
+util.inherits(OldComponent, BaseComponent);
 
-TestComponent.prototype.getIntData = function(){
+OldComponent.prototype.getIntData = function(){
 	return this.intData;
 };
 
-TestComponent.prototype.getRawData = function(){
+OldComponent.prototype.getRawData = function(){
 	return this.rawData;
 };
 
-TestComponent.prototype.setIntData = function(intValue){
-	this.intData = inValue;	
+OldComponent.prototype.setIntData = function(intValue){
+	this.intData = intValue;	
 };
 
-TestComponent.prototype.setRawData = function(rawValue){
+OldComponent.prototype.setRawData = function(rawValue){
 	this.rawData = rawValue;
 };
 
-module.exports = TestComponents;
+/**
+ * Since 0.0.4
+ */
+var NewComponent = exp.NewComponent = function(){
+	// With componentManager
+	BaseComponent.call(this, {name: "NewComponent"});	
+
+	/*
+	 * Without ComponentManager
+	 * example : BaseComponent.call(this, {id: 0, name: "NewComponent"})
+	 */
+	this.intData = 0;
+	this.rawData = null;
+};
+
+util.inherits(NewComponent, BaseComponent);
+
+NewComponent.prototype.getIntData = function(){
+	return this.intData;
+};
+
+NewComponent.prototype.getRawData = function(){
+	return this.rawData;
+};
+
+NewComponent.prototype.setIntData = function(intValue){
+	this.intData = intValue;	
+};
+
+NewComponent.prototype.setRawData = function(rawValue){
+	this.rawData = rawValue;
+};
+
 ```
+
 
 #### Add/delete Component Class
 
 You have to use the ComponentManager, this one has a array of your Component Classes and a double array of the componentType by entities.
 
 ```javascript
-var TestComponent = require('./testComponent');
+var OldComponent = require('./components').OldComponent;
+var NewComponent = require('./components').NewComponent;
+/**
+ * Deprecated (<= 0.0.3)
+ */
+world.getComponentManager().create("OldComponent", OldComponent); // params {name, Component Class}
 
-world.getComponentManager().create("testComponent", TestComponent); // params {name, Component Class}
-world.getComponentManager().getComponentTypeByName("testComponent"); // give the component type
+world.getComponentManager().getComponentTypeByName("OldComponent"); // give the component type
+world.getComponentManager().removeComponentType("OldComponent");
+world.getComponentManager().getComponentTypeByName("OldComponent"); // undefined
 
-world.getComponentManager().removeComponentType("testComponent");
-world.getComponentManager().getComponentTypeByName("testComponent"); // undefined
+/**
+ * Since 0.0.4
+ */
+world.getComponentManager().create("NewComponent", NewComponent);
+
+world.getComponentManager().getComponentTypeByName("NewComponent"); // give the component type
+world.getComponentManager().removeComponentType("NewComponent");
+world.getComponentManager().getComponentTypeByName("NewComponent"); // undefined
 ```
 
 ### Entity
@@ -160,12 +211,12 @@ module.exports = ExampleSystem;
 *registration of your system and process it :
 ```javascript
 var ExampleSystem = require('./exampleSystem');
-var TestComponent = require('./testComponent');
+var OldComponent = require('./OldComponent');
 
 var testWorld = new World();
 
 // you need to add your Components before your systems
-testWorld.getComponentManager().addComponent("TestComponent", TestComponent);
+testWorld.getComponentManager().addComponent("OldComponent", OldComponent);
 
 // Add your system
 testWorld.addSystem("ExampleSystem", ExampleSystem); // param {name, class}
@@ -190,9 +241,80 @@ Override checkProcessing to return false if you want to skip the system during p
 
 Aspects match Entities based on a Component pattern, defining the type of entities a system is interested in. Instead of thinking of systems processing entities, they rather process aspects of entities.
 
+### WorldBuilder/WorldConfiguration (Since > 0.0.4)
+
+#### Load From Arrays
+
+You load all your class prototype or your instance of component, system, register.
+
+```javascript
+var WorldBuilder = require('yeoku').WorldBuilder;
+var WorldConfiguration = require('yeoku').WorldConfiguration;
+
+var wc = new WorldConfiguration();
+wc.LoadConfFromArrays([OldComponent, NewComponent], [new ExampleSystem()], []);
+var testWorld = WorldBuilder.BuildWithWorldConfiguration(wc);
+testWorld.getSystem('ExampleSystem'); // return ExampleSystem Object
+
+var entity = mWorld.em.getEntityById(0);
+entity.addComponent('NewComponent'); 
+
+testWorld.getComponentManager().getComponentTypeByName('NewComponent'); // should be give a NewComponent's type
+(entity.WarriorComp); // should be have the next properties {rawData: null, intData:0}
+```
+
+#### Load From Configuration File
+
+##### Configuration File
+
+Specify all your componentsTypes, systems and managers with their type and path.
+Example configuration file :
+```json
+{
+	"FileName":"WorldConf",
+	"Version": 0.1,
+
+	"ComponentsTypes": [
+		{
+			"name": "OldComponent",
+			"type": "Module", // Class : Only one object by file, Module : Several Objects by file
+			"path": "./components"
+		},
+		{
+			"name": "NewComponent",
+			"type": "Module",
+			"path": "./components"
+		}
+	],
+	"Systems": [
+		{
+			"name" : "ExampleSystem",
+			"type": "Class",
+			"path": "./exampleSystem"
+		}
+	],
+	"OptManagers":[]
+}
+```
+
+##### Build with the configuration file
+
+```
+wc = new WorldConfiguration();
+wc.LoadConfFromFile(__dirname + '/conf/worldConf.json');
+var testWorld = WorldBuilder.BuildWithWorldConfiguration(wc);
+testWorld.getSystem('ExampleSystem'); // return ExampleSystem Object
+
+var entity = mWorld.em.getEntityById(0);
+entity.addComponent('NewComponent'); 
+
+testWorld.getComponentManager().getComponentTypeByName('NewComponent'); // should be give a NewComponent's type
+(entity.WarriorComp); // should be have the next properties {rawData: null, intData:0}
+```
 
 ## Todo
 
+- Don't call the super when the class are not instanciated
 - Entity Archetype (Build with componentManager in the World or with Component Class)
 - Implement should sync entity system and delayed systems
 

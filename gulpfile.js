@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var jsdoc = require('gulp-jsdoc3');
 var mocha = require('gulp-mocha');
+var logger = require('winston');
 
 gulp.task('doc', function (cb) {
     var config = require('./conf.json');
@@ -12,7 +13,8 @@ gulp.task('mocha', () => {
     require('app-module-path').addPath(__dirname + '/lib');
     return gulp.src('test/*.js')
         .pipe(mocha())
-        .once('error', () => {
+        .once('error', (error) => {
+            logger.error(error);
             process.exit(1);
         })
         .once('end', () => {
