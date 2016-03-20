@@ -1,6 +1,6 @@
 {
   "name": "yeoku",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Entity Component System for javascript",
   "license": "MIT",
   "main": "./index.js",
