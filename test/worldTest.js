@@ -17,9 +17,8 @@ function sleep(time, callback) {
 
 describe('WorldTest', function() {
   var mWorld = new World();
-  mWorld.componentManager.create('BasicComp', mockData.BasicComp);
-  mWorld.componentManager.create('ExtendComp', mockData.ExtendComp);
-
+  mWorld.componentManager.create(mockData.WarriorComp);
+  mWorld.componentManager.create(mockData.MageComp);
   describe('#initWorld', function() {
     it('mWorld should exist', function(done) {
       	should.exist(mWorld);
@@ -64,13 +63,15 @@ describe('WorldTest', function() {
   describe('#WorldConfiguration/Builder', function(){
     var wc = new WorldConfiguration();
     it('WorldConfiguration : Load From Arrays', function(done){
-      wc.LoadConfFromArrays([mockData.ExtendComp], [new mockData.BasicSystem(), new mockData.ExtendSystem()], []);
+      wc.LoadConfFromArrays([mockData.WarriorComp, mockData.MageComp], [new mockData.BasicSystem(), new mockData.ExtendSystem()], []);
       var testWorld = WorldBuilder.BuildWithWorldConfiguration(wc);
       should.exist(testWorld);
       should.exist(testWorld.getSystem('BasicSystem'));
       should.exist(testWorld.getSystem('ExtendSystem'));
-      should.exist(testWorld.getComponentManager().getComponentTypeByName('ExtendComp'));
-      testWorld.getComponentManager().getComponentTypeByName('ExtendComp').should.have.properties({'strength': 0, 'magic' : 0});
+
+      console.log("tes ; " + JSON.stringify(testWorld.getComponentManager().getComponentTypeByName('WarriorComp')));
+      should.exist(testWorld.getComponentManager().getComponentTypeByName('WarriorComp'));
+      testWorld.getComponentManager().getComponentTypeByName('WarriorComp').should.have.properties({'heresy': 0, 'combo' : 0});
       done();
     });
     it ('WorldConfiguration : Load From Configuration File', function(done){
@@ -136,21 +137,22 @@ describe('WorldTest', function() {
       mWorld.process();
       mWorld.em.createEntity();
       var entity = mWorld.em.getEntityById(1);
-      entity.addComponent('BasicComp');
+      entity.addComponent('WarriorComp');
       mWorld.process();
 
-      (entity.BasicComp).should.have.properties({'life': 42, 'mana' : 42});
+      console.log(entity);
+      (entity.WarriorComp).should.have.properties({'heresy': 42, 'combo' : 42});
       done();
     });
-    it ('intervalSystem process should be worked', function(done){
+/*    it ('intervalSystem process should be worked', function(done){
       mWorld.addSystem("ExtendSystem", new mockData.ExtendSystem());
 
       var entity = mWorld.em.getEntityById(0);
-      entity.addComponent('ExtendComp');
+      entity.addComponent('MageComp');
       var entity = mWorld.em.getEntityById(0);
       (entity.ExtendComp).should.have.property('magic', '10');
       done();
-    });
+    });*/
   });
 
 });

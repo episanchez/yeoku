@@ -8,10 +8,12 @@ var IteratingSystem = require('system/iteratingSystem');
 var IntervalIteratingSystem = require('system/intervalIteratingSystem');
 var exp = module.exports;
 
-
-// bad Component
+/**
+ * Own Component Without ComponentManager
+ */
+// Bad Component (the getter/setter are private) and deprecated (<= 0.0.3)
 exp.BasicComp = function(){
-	Component.call(new ComponentType(0, 'BasicComp', this));
+	Component.call(this, new ComponentType(0, 'BasicComp', this));
 	this.life = 0;
 	this.mana = 0;
 
@@ -34,11 +36,11 @@ exp.BasicComp = function(){
 
 util.inherits(exp.BasicComp, Component);
 
-// Good Component
+// Good Component (since > 0.0.3)
 var ExtendComp = exp.ExtendComp = function(){
-	Component.call(new ComponentType(1,'ExtendComp', this));
-	this.strength = 0;
+	Component.call(this, {name : 'ExtendComp', id: 1});
 	this.magic = 0;
+	this.strength = 0;
 };
 
 ExtendComp.prototype.setStrength = function(strength){
@@ -63,6 +65,59 @@ ExtendComp.prototype.incMagic = function(inc){
 
 util.inherits(ExtendComp, Component);
 
+/**
+ * Own Component With ComponentManager
+ */
+
+var WarriorComp = exp.WarriorComp = function(){
+	Component.call(this, {name : 'WarriorComp'});
+
+	this.heresy = 0;
+	this.combo = 0;
+};
+
+WarriorComp.prototype.setHeresy = function(heresy){
+	this.heresy = heresy;
+}
+
+WarriorComp.prototype.setCombo = function(combo){
+	this.combo = combo;
+}
+
+WarriorComp.prototype.getCombo = function(){
+	return this.combo;
+}
+
+-WarriorComp.prototype.getHeresy = function(){
+	return this.heresy;
+}
+
+util.inherits(WarriorComp, Component);
+
+var MageComp = exp.MageComp = function(){
+	Component.call(this, {name : 'MageComp'});
+
+	this.flow = 0;
+	this.combo = 0;
+};
+
+MageComp.prototype.setFlow = function(flow){
+	this.flow = flow;
+}
+
+MageComp.prototype.setCombo = function(combo){
+	this.combo = combo;
+}
+
+MageComp.prototype.getCombo = function(combo){
+	return this.combo;
+}
+
+MageComp.prototype.getFlow = function(flow){
+	return this.flow;
+}
+
+util.inherits(MageComp, Component);
 
 /**
  * Systems Example
@@ -77,7 +132,7 @@ var BasicSystem = exp.BasicSystem = function(){
 util.inherits(BasicSystem, IteratingSystem);
 
 BasicSystem.prototype.initialize = function(){
-	this.buildAspectWithComponentsTypeName(["BasicComp"], [], ["ExtendComp"]);
+	this.buildAspectWithComponentsTypeName(["WarriorComp"], [], ["MageComp"]);
 	IteratingSystem.prototype.initialize.call(this);
 };
 
@@ -96,7 +151,7 @@ var ExtendSystem = exp.ExtendSystem = function(){
 util.inherits(ExtendSystem, IntervalIteratingSystem);
 
 ExtendSystem.prototype.initialize = function(){
-	this.buildAspectWithComponentsTypeName(["ExtendComp"], [], ["BasicComp"]);
+	this.buildAspectWithComponentsTypeName(["MageComp"], [], ["WarriorComp"]);
 	IntervalIteratingSystem.prototype.initialize.call(this);
 };
 ExtendSystem.prototype.processEntity = function(entity){

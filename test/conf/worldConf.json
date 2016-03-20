@@ -4,12 +4,12 @@
 
 	"ComponentsTypes": [
 		{
-			"name": "BasicComp",
+			"name": "WarriorComp",
 			"type": "Module",
 			"path": "../mockData"
 		},
 		{
-			"name": "ExtendComp",
+			"name": "MageComp",
 			"type": "Module",
 			"path": "../mockData"
 		}
