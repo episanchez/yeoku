@@ -45,19 +45,19 @@ var ExtendComp = exp.ExtendComp = function(){
 
 ExtendComp.prototype.setStrength = function(strength){
 	this.strength = strength;
-};
+}
 
 ExtendComp.prototype.setMagic = function(magic){
 	this.magic = magic;
-};
+}
 
 ExtendComp.prototype.getStrength = function(){
 	return this.strength;
-};
+}
 
 ExtendComp.prototype.getMagic = function(){
 	return this.magic;
-};
+}
 
 ExtendComp.prototype.incMagic = function(inc){
 	this.magic += 1;
@@ -88,7 +88,7 @@ WarriorComp.prototype.getCombo = function(){
 	return this.combo;
 }
 
--WarriorComp.prototype.getHeresy = function(){
+WarriorComp.prototype.getHeresy = function(){
 	return this.heresy;
 }
 
@@ -138,8 +138,8 @@ BasicSystem.prototype.initialize = function(){
 
 BasicSystem.prototype.processEntity = function(entity){
 	var eObj = this.world.em.getEntityById(entity);
-	eObj.BasicComp.mana = 42;
-	eObj.BasicComp.life = 42;
+	eObj.WarriorComp.heresy = 42;
+	eObj.WarriorComp.combo = 42;
 };
 
 var ExtendSystem = exp.ExtendSystem = function(){
@@ -155,6 +155,5 @@ ExtendSystem.prototype.initialize = function(){
 	IntervalIteratingSystem.prototype.initialize.call(this);
 };
 ExtendSystem.prototype.processEntity = function(entity){
-	var eObj = this.world.em.getEntityById(entity);
 	eObj.ExtendComp.incMagic(1);
 };

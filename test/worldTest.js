@@ -69,9 +69,13 @@ describe('WorldTest', function() {
       should.exist(testWorld.getSystem('BasicSystem'));
       should.exist(testWorld.getSystem('ExtendSystem'));
 
-      console.log("tes ; " + JSON.stringify(testWorld.getComponentManager().getComponentTypeByName('WarriorComp')));
+      var entity = mWorld.em.getEntityById(0);
+      entity.addComponent('WarriorComp');
+
+      console.log(entity.WarriorComp);
       should.exist(testWorld.getComponentManager().getComponentTypeByName('WarriorComp'));
-      testWorld.getComponentManager().getComponentTypeByName('WarriorComp').should.have.properties({'heresy': 0, 'combo' : 0});
+      (entity.WarriorComp).should.have.properties({'heresy': 0, 'combo' : 0});
+      entity.removeComponent('WarriorComp');
       done();
     });
     it ('WorldConfiguration : Load From Configuration File', function(done){
@@ -84,8 +88,6 @@ describe('WorldTest', function() {
       should.exist(testWorld.getSystem('BasicSystem'));
       should.exist(testWorld.getSystem('ExtendSystem'));
 
-      // testWorld.getComponentManager().getComponentTypeByName('BasicComp').should.have.properties({'life': 0, 'mana' : 0});
-      // testWorld.getComponentManager().getComponentTypeByName('ExtendComp').should.have.properties({'strength': 0, 'magic' : 0});
       done();
     });
   });
@@ -140,7 +142,6 @@ describe('WorldTest', function() {
       entity.addComponent('WarriorComp');
       mWorld.process();
 
-      console.log(entity);
       (entity.WarriorComp).should.have.properties({'heresy': 42, 'combo' : 42});
       done();
     });
