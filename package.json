@@ -5,6 +5,11 @@
   "license": "MIT",
   "main": "./index.js",
   "private": false,
+  "author": {
+    "name": "Charlie Quillard",
+    "email": "charlie.quillard@epitech.eu"
+  },
+  "keywords": ["ecs","yeoku", "entity-component-system"],
   "repository": {
     "type": "git",
     "url": "https://github.com/episanchez/yeoku.git"
