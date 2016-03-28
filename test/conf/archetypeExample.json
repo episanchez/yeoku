@@ -1,0 +1,8 @@
+{
+	"name": "ArchetypeExample",
+	"version": 0.1,
+	"components":{
+		"WarriorComp":{},
+		"MageComp":{}
+	}
+}
