@@ -77,12 +77,21 @@ describe('WorldTest', function() {
       entity.removeComponent('WarriorComp');
       done();
     });
-    it ('WorldConfiguration : Load From Configuration File', function(done){
+    it ('WorldConfiguration : Load From Configuration File and create Entity with archetype', function(done){
       wc.clean();
       wc.LoadConfFromFile(__dirname + '/conf/worldConf.json');
 
       var testWorld = WorldBuilder.BuildWithWorldConfiguration(wc);
       should.exist(testWorld);
+
+      testWorld.archetypeManager.loadArchetypeFromFile(__dirname + '/conf/archetypeExample.json');
+      var ae = testWorld.getArchetypeManager().getArchetypeByName('ArchetypeExample');
+      should.exist(ae);
+      testWorld.getEntityManager().createEntityWithArchetype(ae);
+      var e1 = testWorld.getEntityManager().getEntityById(0);
+      should.exist(e1);
+      should.exist(e1["WarriorComp"]);
+      should.exist(e1["MageComp"]);
 
       done();
     });

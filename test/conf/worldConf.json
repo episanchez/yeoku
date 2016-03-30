@@ -6,7 +6,7 @@
 		{
 			"name": "WarriorComp",
 			"type": "Module",
-			"path": "../mockData"
+			"path": "../mockData" 
 		},
 		{
 			"name": "MageComp",
