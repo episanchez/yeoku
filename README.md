@@ -149,6 +149,27 @@ Each entity has a copy of ComponentsManager, with this one, you can add/delete a
 world.getEntityManager().createEntity();
 ```
 
+##### Create Entity With Archetype (>= 0.0.5)
+
+```javascript
+var testWorld = new World();
+testWorld.getArchetypeManager().loadArchetypeFromFile(__dirname + '/conf/archetypeExample.json'); // load the archetype in the manager
+var ae = testWorld.getArchetypeManager().getArchetypeByName('ArchetypeExample'); // Get the archetype
+testWorld.getEntityManager().createEntityWithArchetype(ae);
+```
+
+Archetype example :
+
+```json
+{
+	"name": "ArchetypeExample",
+	"version": 0.1,
+	"components":{
+		"WarriorComp":{},
+		"MageComp":{}
+	}
+}
+```
 #### Add/delete Component to the Entity
 
 ```javascript
@@ -316,12 +337,6 @@ entity.addComponent('NewComponent');
 testWorld.getComponentManager().getComponentTypeByName('NewComponent'); // should be give a NewComponent's type
 (entity.WarriorComp); // should be have the next properties {rawData: null, intData:0}
 ```
-
-## Todo
-
-- Don't call the super when the class are not instanciated
-- Entity Archetype (Build with componentManager in the World or with Component Class)
-- Implement should sync entity system and delayed systems
 
 ##License
 
