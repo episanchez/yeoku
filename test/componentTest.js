@@ -63,6 +63,19 @@ describe('Component Part Test', function() {
       done();
     });
 
-    //Manage pool of entity components in ComponentManager
+    it('component builder', function(done){
+      var componentBuilder = require('component/componentBuilder');
+
+      var lc = componentBuilder.buildComponentFromFile(__dirname + '/conf/componentExample.json');
+
+      should.exist(lc);
+      var c1 = Object.create(lc);
+      var c2 = Object.create(lc);
+
+      c1.attr1 = 89;
+      c1.should.have.property('attr1', 89);
+      c2.should.have.property('attr1', 20);
+      done();
+    });
   });
 });

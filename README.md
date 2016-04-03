@@ -136,6 +136,37 @@ world.getComponentManager().removeComponentType("NewComponent");
 world.getComponentManager().getComponentTypeByName("NewComponent"); // undefined
 ```
 
+#### Component With ComponentBuilder (> 0.0.6)
+
+Your Own component :
+```json
+{
+	"name": "ComponentExample",
+	"version": 0.1,
+	"attributes":{
+		"attr1": 20,
+		"attr2": 30
+	}
+}
+```
+
+Build your own component : 
+
+```javascript
+      var componentBuilder = require('component/componentBuilder');
+
+      var lc = componentBuilder.buildComponentFromFile(__dirname + '/conf/componentExample.json');
+
+      should.exist(lc);
+      var c1 = Object.create(lc);
+      var c2 = Object.create(lc);
+
+      c1.attr1 = 89;
+      c1.should.have.property('attr1', 89);
+      c2.should.have.property('attr1', 20);
+```
+
+
 ### Entity
 
 Entity are containers of related components.
@@ -337,6 +368,13 @@ entity.addComponent('NewComponent');
 testWorld.getComponentManager().getComponentTypeByName('NewComponent'); // should be give a NewComponent's type
 (entity.WarriorComp); // should be have the next properties {rawData: null, intData:0}
 ```
+
+## TODO for 0.1 version
+
+* implement componentBuilder feature into the worldConfiguration and componentManager
+* implement the default value for archetype's component
+* delete deprecated function
+* clear the documentation and unit test
 
 ##License
 
