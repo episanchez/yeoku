@@ -1,80 +1,96 @@
 var should = require('should');
-
-var Component = require('component/component');
-var ComponentType = require('component/componentType');
+var Entity = require('entity/entity');
 var ComponentManager = require('manager/componentManager');
-var Entity = require('entity');
 
 var mockData = require('./mockData');
 
-describe('Component Part Test', function() {
-  describe('#Test Component without componentManager', function() {
-    var bc = new mockData.BasicComp();
-    var ec = new mockData.ExtendComp();
-    it('BasicComp and ExtendComp exist', function(done) {
-      should.exist(bc);
-      should.exist(ec);
+
+// Have to do (new component system)
+describe('Component Features Testing', function() {
+  describe('#Component Regression Tests', function(){
+    var componentBuilder = require('component/componentBuilder');
+    var genericObject = null;
+    var firstInstance = null;
+    var secondInstance = null;
+
+    it('ComponentBuilder: existence features', function(done){
+      should.exist(componentBuilder);
+      should.exist(componentBuilder.createComponentFromJson);
+      should.exist(componentBuilder.buildComponentFromFile);
       done();
     });
-    it('BasicComp and ExtendComp have good properties', function(done) {
-      bc.should.have.properties({life : 0, mana : 0});
-      ec.should.have.properties({strength : 0, magic : 0});
+    it('ComponentBuilder generated object exists', function(done){
+      genericObject = componentBuilder.buildComponentFromFile(__dirname + '/conf/componentExample.json');
+
+      should.exist(genericObject);
+      firstInstance = Object.create(lc);
+      secondInstance = Object.create(lc);
+      
+      should.exist(firstInstance);
+      should.exist(secondInstance);
       done();
     });
-    it('Could access to the BasicComp and ExtendComp functions', function(done) {
-      should.not.exist(bc.getLife);
-      (ec.getStrength()).should.be.equal(0);
+    it('ComponentBuilder generate new independant instances', function(done){
+      firstInstance.attr1 = 89;
+      firstInstance.should.have.property('attr1', 89);
+      secondInstance.should.have.property('attr1', 20);
       done();
     });
   });
-  describe('#Test Component with componentManager', function() {
-    var cm = new ComponentManager();
-    var en = new Entity(null, 0);
-    it('BasicComp and ExtendComp should be added in the manager', function(done) {
-      cm.create('BasicComp', mockData.BasicComp);
-      cm.create('ExtendComp', mockData.ExtendComp);
 
-      var ct1 = cm.getComponentTypeByName('BasicComp');
-      var ct2 = cm.getComponentTypeByName('ExtendComp');
-
-      should.exist(ct1);
-      should.exist(ct2);
-
-      ct1.should.have.properties({_id :0, _name: 'BasicComp'});
-      ct2.should.have.properties({_id :1, _name: 'ExtendComp'});
-
-      var ct1Instance = new ct1._type;
-      var ct2Instance = new ct2._type;
-
-      ct1Instance.should.have.properties({life : 0, mana : 0});
-      ct2Instance.should.have.properties({strength : 0, magic : 0});
-
+  describe('#ComponentManager Regression test', function(){
+    var componentManager = new ComponentManager();
+    var entity = new Entity(null, 0);
+    it('ComponentManager : existence features', function(done){
+      should.exist(componentManager);
+      //maybe test the inheritance methods
+      should.exist(componentManager.insert);
+      should.exist(componentManager.remove);
+      should.exist(componentManager.getComponentTypeByName);
+      should.exist(componentManager.create);
+      should.exist(componentManager.removeComponentType);
+      should.exist(componentManager.addComponentByName);
+      should.exist(componentManager.removeComponentByName);
+      should.exist(componentManager.removeEntityComponentsSetByValue);
+      should.exist(componentManager.removeAllComponentsByEntity);
+      should.exist(componentManager.getAllComponentsByUID);
       done();
     });
-    it('BasicComp and ExtendComp should be added to the Entity', function(done) {
-      cm.addComponentByName(en , 'BasicComp');
-      cm.addComponentByName(en , 'ExtendComp');
+    it('Add new components into componentManager', function(done){
+      var WarriorComp = {name:'WarriorComp', attributes:{heresy:10, combo:0}};
+      var MageComp = {name:'MageComp', attributes:{mana:10, flux:12}};
 
-      should.exist(en['BasicComp']);
-      should.exist(en['ExtendComp']);
+      var wcf = require('component/componentBuilder').createComponentFromJson(WarriorComp);
+      var mcf = require('component/componentBuilder').createComponentFromJson(MageComp);
+      should.exist(mcf);
+      should.exist(wcf);
+      ComponentManager.create(mcf);
+      ComponentManager.create(wcf);
 
-      (en['BasicComp']).should.have.properties({life : 0, mana : 0});
-      (en['ExtendComp']).should.have.properties({strength : 0, magic : 0});
+      should.exist(componentManager.getComponentTypeByName('WarriorComp'));
+      should.exist(componentManager.getComponentTypeByName('MageComp'));
       done();
     });
-
-    it('component builder', function(done){
-      var componentBuilder = require('component/componentBuilder');
-
-      var lc = componentBuilder.buildComponentFromFile(__dirname + '/conf/componentExample.json');
-
-      should.exist(lc);
-      var c1 = Object.create(lc);
-      var c2 = Object.create(lc);
-
-      c1.attr1 = 89;
-      c1.should.have.property('attr1', 89);
-      c2.should.have.property('attr1', 20);
+    it('Add a component to an entity', function(done){
+      componentManager.addComponentByName(entity, 'MageComp');
+      should.exist(entity['MageComp']);
+      (entity['MageComp']).should.have.properties({mana:10, flux:0});
+      var lc = componentManager.getAllComponentsByUID(entity.uid);
+      lc.length.should.be.equal(1);
+      (lc[0]).should.be.equal(1);
+      done();
+    });
+    it('Remove a component to an entity', function(done){
+      componentManager.removeComponentByName(entity, 'MageComp');
+      should.not.exist(entity['MageComp']);
+      var lc = componentManager.getAllComponentsByUID(entity.uid);
+      lc.length.should.be.equal(0);
+      done();
+    });
+    it('Remove a component into componentManager', function(done){
+      componentManager.removeComponentType('WarriorComp');
+      should.not.exist(componentManager.getComponentTypeByName('WarriorComp'));
+      should.exist(componentManager.getComponentTypeByName('MageComp'));
       done();
     });
   });
