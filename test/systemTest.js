@@ -2,8 +2,8 @@ var should = require('should');
 
 var BaseSystem = require('system/baseSystem');
 var EntitySystem = require('system/entitySystem');
+var IteratingSystem = require('system/iteratingSystem');
 var IntervalSystem = require('system/intervalSystem');
-var IntervalIteratingSystem = require('system/intervalIteratingSystem');
 
 describe('System Features Testing', function(){
 	describe('#BaseSystem Regression Tests', function(){
@@ -23,6 +23,11 @@ describe('System Features Testing', function(){
 			should.exist(baseSystem.getWorld);
 			done();
 		});
+		it('BaseSystem : features should be implemented', function(done){
+			baseSystem.initialize().should.throw('Have to be implemented');
+			baseSystem.processSystem().should.throw('Have to be implemented');
+			done();
+		});
 	});
 	describe('#EntitySystem Regression Tests', function(){
 		var entitySystem = new EntitySystem();
@@ -36,14 +41,5 @@ describe('System Features Testing', function(){
 			should.exist(entitySystem.inserted);
 			done();
 		});
-	});
-	describe('#IteratingSystem Regression Tests', function(){
-		// todo
-	});
-	describe('#IntervalSystem Regression Tests', function(){
-		//todo
-	});
-	describe('#IntervalIteratingSystem Regression Tests', function(){
-		//todo
 	});
 });

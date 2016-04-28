@@ -1,29 +1,36 @@
 var should = require('should');
 
 var World = require('world');
-var WorldConfiguration = require('worldConfiguration');
+//var WorldConfiguration = require('worldConfiguration');
 var WorldBuilder = require('worldBuilder');
 var EntityManager = require('manager/entityManager');
 
 var mockData = require('./mockData');
-
-function sleep(time, callback) {
-    var stop = new Date().getTime();
-    while(new Date().getTime() < stop + time) {
-        ;
-    }
-    callback();
-}
-
-describe('WorldTest', function() {
+/*
+describe('World Features Testing', function() {
   var mWorld = new World();
   mWorld.componentManager.create(mockData.WarriorComp);
   mWorld.componentManager.create(mockData.MageComp);
-  describe('#initWorld', function() {
-    it('mWorld should exist', function(done) {
-      	should.exist(mWorld);
-      	done();
+  describe('#World', function() {
+    it('World : existence features', function(done){
+      should.exist(mWorld);
+      should.exist(mWorld.getSystems);
+      should.exist(mWorld.getSystem);
+      should.exist(mWorld.getEntityManager);
+      should.exist(mWorld.getAspectSubscriptionManager);
+      should.exist(mWorld.getArchetypeManager);
+      should.exist(mWorld.getComponentManager);
+      should.exist(mWorld.process);
+      should.exist(mWorld.addSystem);
+      should.exist(mWorld.removeSystem):
+      should.exist(mWorld.addChangedId);
+      should.exist(mWorld.addRemovedId);
+      should.exist(mWorld.getChangedId);
+      should.exist(mWorld.getRemovedId);
+      should.exist(mWorld.updateEntityStates);
+      done();
     });
+
     it('entityManager should exist', function(done) {
       mWorld.should.have.property('em');
       should.exist(mWorld.em);
@@ -44,6 +51,7 @@ describe('WorldTest', function() {
     });
   });
 
+  // to be removed
   describe('#ManageEntities', function(){
     it('Create Entities : this one should exist', function(done){
       mWorld.em.createEntity();
@@ -60,23 +68,26 @@ describe('WorldTest', function() {
     });
   });
 
-  describe('#WorldConfiguration/Builder', function(){
+  describe('#WorldConfiguration & WorldBuilder Regression Test', function(){
     var wc = new WorldConfiguration();
-    it('WorldConfiguration : Load From Arrays', function(done){
-      wc.LoadConfFromArrays([mockData.WarriorComp, mockData.MageComp], [new mockData.BasicSystem(), new mockData.ExtendSystem()], []);
-      var testWorld = WorldBuilder.BuildWithWorldConfiguration(wc);
-      should.exist(testWorld);
-      should.exist(testWorld.getSystem('BasicSystem'));
-      should.exist(testWorld.getSystem('ExtendSystem'));
 
-      var entity = mWorld.em.getEntityById(0);
-      entity.addComponent('WarriorComp');
-
-      should.exist(testWorld.getComponentManager().getComponentTypeByName('WarriorComp'));
-      (entity.WarriorComp).should.have.properties({'heresy': 0, 'combo' : 0});
-      entity.removeComponent('WarriorComp');
+    it('WorldConfiguration : existence features', function(done){
+      should.exist(wc);
+      should.exist(wc.LoadConfFromFile);
+      should.exist(wc.getComponentsType);
+      should.exist(wc.getSystems);
+      should.exist(wc.getArchetypes);
+      should.exist(wc.getOptManagers);
       done();
     });
+
+    it('WorldBuilder : existence features', function(done){
+      should.exist(WorldBuilder);
+      should.exist(WorldBuilder.buildEmptyWorld);
+      should.exist(WorldBuilder.BuildWithWorldConfiguration);
+      done();
+    });
+
     it ('WorldConfiguration : Load From Configuration File and create Entity with archetype', function(done){
       wc.clean();
       wc.LoadConfFromFile(__dirname + '/conf/worldConf.json');
@@ -97,6 +108,7 @@ describe('WorldTest', function() {
     });
   });
 
+  // to be removed
   describe('#ManageSystem', function(){
 
     it('add a system should be worked', function(done){
@@ -150,15 +162,7 @@ describe('WorldTest', function() {
       (entity.WarriorComp).should.have.properties({'heresy': 42, 'combo' : 42});
       done();
     });
-/*    it ('intervalSystem process should be worked', function(done){
-      mWorld.addSystem("ExtendSystem", new mockData.ExtendSystem());
-
-      var entity = mWorld.em.getEntityById(0);
-      entity.addComponent('MageComp');
-      var entity = mWorld.em.getEntityById(0);
-      (entity.ExtendComp).should.have.property('magic', '10');
-      done();
-    });*/
   });
 
 });
+*/

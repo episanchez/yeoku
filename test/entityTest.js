@@ -56,6 +56,7 @@ describe('Entity Features Testing', function(){
 			should.exist(entityManager.getEntityById);
 			should.exist(entityManager.isActive);
 			should.exist(entityManager.synchronize);
+			done();
 		});
 	});
 });

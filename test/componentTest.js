@@ -23,8 +23,8 @@ describe('Component Features Testing', function() {
       genericObject = componentBuilder.buildComponentFromFile(__dirname + '/conf/componentExample.json');
 
       should.exist(genericObject);
-      firstInstance = Object.create(lc);
-      secondInstance = Object.create(lc);
+      firstInstance = Object.create(genericObject);
+      secondInstance = Object.create(genericObject);
       
       should.exist(firstInstance);
       should.exist(secondInstance);
@@ -64,8 +64,8 @@ describe('Component Features Testing', function() {
       var mcf = require('component/componentBuilder').createComponentFromJson(MageComp);
       should.exist(mcf);
       should.exist(wcf);
-      ComponentManager.create(mcf);
-      ComponentManager.create(wcf);
+      componentManager.create(mcf);
+      componentManager.create(wcf);
 
       should.exist(componentManager.getComponentTypeByName('WarriorComp'));
       should.exist(componentManager.getComponentTypeByName('MageComp'));
@@ -74,7 +74,7 @@ describe('Component Features Testing', function() {
     it('Add a component to an entity', function(done){
       componentManager.addComponentByName(entity, 'MageComp');
       should.exist(entity['MageComp']);
-      (entity['MageComp']).should.have.properties({mana:10, flux:0});
+      (entity['MageComp']).should.have.properties({mana:10, flux:12});
       var lc = componentManager.getAllComponentsByUID(entity.uid);
       lc.length.should.be.equal(1);
       (lc[0]).should.be.equal(1);
