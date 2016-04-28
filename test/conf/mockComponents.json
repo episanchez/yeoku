@@ -1,0 +1,21 @@
+{
+	"name": "mockComponents",
+	"type": "Module",
+	"version":0.3,
+	"objects":{
+		"WarriorComp":{
+			"name": "WarriorComp",
+			"attributes":{
+				"heresy":10,
+				"combo":0
+			}
+		},
+		"MageComp":{
+			"name": "MageComp",
+			"attributes":{
+				"mana":42,
+				"flux":15
+			}
+		}
+	}
+}

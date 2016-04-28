@@ -1,0 +1,25 @@
+{
+	"name": "MockArchetypes",
+	"type": "Module",
+	"version": 0.3,
+	"objects":{
+		"Warrior":{
+			"name": "Warrior",
+			"components":{
+				"WarriorComp":{
+					"heresy":42,
+					"combo":42
+				}
+			}
+		},
+		"Mage":{
+			"name": "Mage",
+			"components":{
+				"MageComp":{
+					"mana":84,
+					"flux":84
+				}
+			}
+		}
+	}
+}

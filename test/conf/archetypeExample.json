@@ -1,8 +1,15 @@
 {
 	"name": "ArchetypeExample",
-	"version": 0.1,
+	"type": "Class",
+	"version": 0.2,
 	"components":{
-		"WarriorComp":{},
-		"MageComp":{}
+		"WarriorComp":{
+			"heresy":10,
+			"combo":0
+			},
+		"MageComp":{
+			"mana":42,
+			"flux":15
+		}
 	}
 }

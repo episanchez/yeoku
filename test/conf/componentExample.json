@@ -1,6 +1,7 @@
 {
 	"name": "ComponentExample",
-	"version": 0.1,
+	"type": "Class",
+	"version": 0.2,
 	"attributes":{
 		"attr1": 20,
 		"attr2": 30
