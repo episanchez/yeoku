@@ -3,10 +3,10 @@ var should = require('should');
 var World = require('world');
 var Aspect = require('aspect/aspect');
 var EntitySubscription = require('aspect/entitySubscription');
-var Entity = require('entity');
-var ComponentType = require('component/componentType');
+var AspectSubscriptionManager = require('manager/aspectSubscriptionManager');
+var Entity = require('entity/entity');
 
-describe('AspectTest', function() {
+describe('Aspect Features Testing', function() {
   /**
    * mock data
    */
@@ -20,13 +20,19 @@ describe('AspectTest', function() {
   entity2._ComponentsSet = [1,2,3];
   entity3._ComponentsSet = [2,3,4];
 
-  describe('#Aspect Regression Test', function() {
-    it ('Aspect Object should be created', function(done){
+  describe('#Aspect Regression Tests', function() {
+    it ('Aspect : existence features', function(done){
     	should.exist(aspect1);
+      should.exist(aspect1.getAllIds);
+      should.exist(aspect1.getOneIds);
+      should.exist(aspect1.getExcludeIds);
+      should.exist(aspect1.getStrResult);
     	should.exist(aspect1.buildAll);
     	should.exist(aspect1.buildOne);
     	should.exist(aspect1.buildExclude);
+      should.exist(aspect1.buildWithStrResult);
     	should.exist(aspect1.isInterested);
+      should.exist(aspect1.equals);
     	done();
     });
     it ('Component Sets (All, One, Exclude) should be built', function(done){
@@ -68,11 +74,14 @@ describe('AspectTest', function() {
 
   });
 
-  describe('#EntitySubscription Test', function(){
+  describe('#EntitySubscription Regression Test', function(){
   	var entitySubscription1 = new EntitySubscription(aspect1, null);
 
-  	it ('EntitySubscription Object should be created', function(done){
+  	it ('EntitySubscription : existence features', function(done){
   		should.exist(entitySubscription1);
+      should.exist(entitySubscription1.getAspect);
+      should.exist(entitySubscription1.getActiveEntities);
+      should.exist(entitySubscription1.getEntities);
   		should.exist(entitySubscription1.checkEntity);
   		should.exist(entitySubscription1.informEntityChanges);
   		should.exist(entitySubscription1.process);
@@ -111,12 +120,20 @@ describe('AspectTest', function() {
       //entitySubscription1.activeEntitiesId.should.be.equal([0,1,2,4]);
       done();
     });
-  	//todo
   });
-  describe('#AspectSubscriptionManager Test', function(){
+  describe('#AspectSubscriptionManager Regression Test(With World)', function(){
     var w1 = new World();
 
-    it('EntitySubscription should be created', function(done){
+    it('AspectSubscriptionManager : existence features', function(done){
+      should.exist(w1.aspectSubscriptionManager);
+      should.exist(w1.aspectSubscriptionManager.createSubscription);
+      should.exist(w1.aspectSubscriptionManager.registerManager);
+      should.exist(w1.aspectSubscriptionManager.getSubscription);
+      should.exist(w1.aspectSubscriptionManager.process);
+      done();
+    });
+
+    it('An EntitySubscription should be created', function(done){
 
       w1.aspectSubscriptionManager.createSubscription(aspect1);
       w1.aspectSubscriptionManager.createSubscription(aspect2);
@@ -149,7 +166,5 @@ describe('AspectTest', function() {
       es2.getAspect().should.have.properties({allSet : [2,3], oneSet: [1,5], excludeSet : []});
       done();
     });
-
-  	//todo
   });
 });
