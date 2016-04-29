@@ -64,8 +64,8 @@ describe('Component Features Testing', function() {
       var mcf = require('component/componentBuilder').createComponentFromJson(MageComp);
       should.exist(mcf);
       should.exist(wcf);
-      componentManager.create(mcf);
       componentManager.create(wcf);
+      componentManager.create(mcf);
 
       should.exist(componentManager.getComponentTypeByName('WarriorComp'));
       should.exist(componentManager.getComponentTypeByName('MageComp'));

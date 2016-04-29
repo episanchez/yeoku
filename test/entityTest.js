@@ -9,11 +9,12 @@ var ArchetypeManager = require('manager/archetypeManager');
 
 describe('Entity Features Testing', function(){
 	describe('#Archetype & ArchetypeBuilder & ArchetypeManager Regression Tests', function(){
+		var archetype = new Archetype();
 		it('Archetype : existence features', function(done){
-			should.exist(Archetype);
-			should.exist(Archetype.getComponents);
-			should.exist(Archetype.addComponent);
-			should.exist(Archetype.setComponents);
+			should.exist(archetype);
+			should.exist(archetype.getComponents);
+			should.exist(archetype.addComponent);
+			should.exist(archetype.setComponents);
 			done();
 		});
 		it('ArchetypeBuilder : existence features', function(done){
