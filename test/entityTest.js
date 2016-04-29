@@ -3,13 +3,43 @@ var should = require('should');
 var Archetype = require('entity/archetype');
 var ArchetypeBuilder = require('entity/archetypeBuilder');
 var Entity = require('entity/entity');
-
+var World = require('world');
 var EntityManager = require('manager/entityManager');
-var ArchetypeManager = require('manager/archetypeManager');
 
 describe('Entity Features Testing', function(){
+	var world = new World();
+	var jsonArch = {
+			name: 'ArchetypeExample',
+			version: 0.2,
+			components:{
+				WarriorComp:{
+					heresy:10,
+					combo:0
+				},
+				MageComp:{
+					mana:42,
+					flux:15
+				}
+			}
+		};
+	var noDefaultValueArch = {
+			name: 'noDefaultValue',
+			version: 0.2,
+			components:{
+				WarriorComp:{},
+				MageComp:{}
+			}
+		};
 	describe('#Archetype & ArchetypeBuilder & ArchetypeManager Regression Tests', function(){
 		var archetype = new Archetype();
+
+	  	var WarriorComp = {name:'WarriorComp', attributes:{heresy:10, combo:0}};
+      	var MageComp = {name:'MageComp', attributes:{mana:10, flux:12}};
+      	var wcf = require('component/componentBuilder').createComponentFromJson(WarriorComp);
+      	var mcf = require('component/componentBuilder').createComponentFromJson(MageComp);
+      	
+      	world.getComponentManager().create(mcf);
+      	world.getComponentManager().create(wcf);
 		it('Archetype : existence features', function(done){
 			should.exist(archetype);
 			should.exist(archetype.getComponents);
@@ -22,7 +52,7 @@ describe('Entity Features Testing', function(){
 			should.exist(ArchetypeBuilder.buildArchetypeFromJson);
 			done();
 		});
-		var archetypeManager = new ArchetypeManager(null);
+		var archetypeManager = world.getArchetypeManager();
 		it('ArchetypeManager: existence features', function(done){
 			should.exist(archetypeManager);
 			should.exist(archetypeManager.addArchetype);
@@ -31,11 +61,32 @@ describe('Entity Features Testing', function(){
 			should.exist(archetypeManager.removeArchetype);
 			done();
 		});
+
+		it('the archetype should be built from json object', function(done){
+			var tmp = ArchetypeBuilder.buildArchetypeFromJson(jsonArch, world);
+			should.exist(tmp);
+			tmp.should.be.an.Object;
+			tmp.should.be.an.instanceof(Archetype);
+			done();
+		});
+		it('the archetype should be added to the manager', function(done){
+			world.getArchetypeManager().addArchetype(jsonArch);
+			var arch = archetypeManager.getArchetypeByName('ArchetypeExample');
+			should.exist(arch);
+			arch.should.be.an.Object;
+			arch.should.be.an.instanceof(Archetype);
+			done();
+		});
+		it('the archetype should be removed to the manager', function(done){
+			archetypeManager.removeArchetype('ArchetypeExample');
+			should.not.exist(archetypeManager.getArchetypeByName('ArchetypeExample'));
+			done();
+		});
 	});
+
 	describe('#Entity & EntityManager Regression Tests', function(){
 		var firstEntity = new Entity(null, 0);
-		var secondEntity = new Entity(null, 0);
-		var entityManager = new EntityManager();
+		var entityManager = world.getEntityManager();
 
 		it('Entity : existence features', function(done){
 			should.exist(firstEntity);
@@ -57,6 +108,31 @@ describe('Entity Features Testing', function(){
 			should.exist(entityManager.getEntityById);
 			should.exist(entityManager.isActive);
 			should.exist(entityManager.synchronize);
+			done();
+		});
+		it('The empty entity should be added to the manager', function(done){
+			entityManager.createEntity();
+			should.exist(entityManager.getEntityById(0));
+			done();
+		});
+		it('The Archetype entity should be added to the manager with default values', function(done){
+			world.getArchetypeManager().addArchetype(jsonArch);
+			entityManager.createEntityWithArchetypeName('ArchetypeExample');
+			var entity = entityManager.getEntityById(1);
+			should.exist(entity["WarriorComp"]);
+			should.exist(entity["MageComp"]);
+			(entity["WarriorComp"]).should.have.properties({heresy:10, combo:0});
+			(entity["MageComp"]).should.have.properties({mana:42, flux:15});
+			done();
+		});
+		it('The Archetype entity should be added to the manager without default value', function(done){
+			world.getArchetypeManager().addArchetype(noDefaultValueArch);
+			entityManager.createEntityWithArchetypeName('noDefaultValue');
+			var entity = entityManager.getEntityById(2);
+			should.exist(entity["WarriorComp"]);
+			should.exist(entity["MageComp"]);
+			(entity["WarriorComp"]).should.have.properties({heresy:10, combo:0});
+			(entity["MageComp"]).should.have.properties({mana:10, flux:12});
 			done();
 		});
 	});
