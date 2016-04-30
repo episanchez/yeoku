@@ -31,9 +31,16 @@
 		<ul class="nav navbar-nav">
 			
 			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-ComponentBuilder.html">ComponentBuilder</a></li><li><a href="module-WorldBuilder.html">WorldBuilder</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Aspect.html">Aspect</a></li><li><a href="AspectSubscriptionManager.html">AspectSubscriptionManager</a></li><li><a href="BaseSystem.html">BaseSystem</a></li><li><a href="Component.html">Component</a></li><li><a href="ComponentManager.html">ComponentManager</a></li><li><a href="ComponentType.html">ComponentType</a></li><li><a href="Entity.html">Entity</a></li><li><a href="EntityManager.html">EntityManager</a></li><li><a href="EntitySubscription.html">EntitySubscription</a></li><li><a href="EntitySystem.html">EntitySystem</a></li><li><a href="IntervalIteratingSystem.html">IntervalIteratingSystem</a></li><li><a href="IntervalSystem.html">IntervalSystem</a></li><li><a href="IteratingSystem.html">IteratingSystem</a></li><li><a href="Manager.html">Manager</a></li><li><a href="World.html">World</a></li>
+					<li><a href="Archetype.html">Archetype</a></li><li><a href="ArchetypeManager.html">ArchetypeManager</a></li><li><a href="Aspect.html">Aspect</a></li><li><a href="AspectSubscriptionManager.html">AspectSubscriptionManager</a></li><li><a href="BaseSystem.html">BaseSystem</a></li><li><a href="ComponentManager.html">ComponentManager</a></li><li><a href="Entity.html">Entity</a></li><li><a href="EntityManager.html">EntityManager</a></li><li><a href="EntitySubscription.html">EntitySubscription</a></li><li><a href="EntitySystem.html">EntitySystem</a></li><li><a href="IntervalIteratingSystem.html">IntervalIteratingSystem</a></li><li><a href="IntervalSystem.html">IntervalSystem</a></li><li><a href="IteratingSystem.html">IteratingSystem</a></li><li><a href="Manager.html">Manager</a></li><li><a href="World.html">World</a></li><li><a href="WorldConfiguration.html">WorldConfiguration</a></li>
 				</ul>
 			</li>
 			
@@ -283,7 +290,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="buildAspectWithComponentsTypeName"><span class="type-signature"></span>buildAspectWithComponentsTypeName(Array, Array, Array)</h4>
+    <h4 class="name" id="buildAspectWithComponentsTypeName"><span class="type-signature"></span>buildAspectWithComponentsTypeName(allComponents, oneComponents, excludeComponents)</h4>
     
     
 </dt>
@@ -326,7 +333,7 @@
 
         <tr>
             
-                <td class="name"><code>Array</code></td>
+                <td class="name"><code>allComponents</code></td>
             
 
             <td class="type">
@@ -343,14 +350,14 @@
 
             
 
-            <td class="description last"><p>of Components Type Name for aspect all components (entity need having all components type of the list)</p></td>
+            <td class="description last"><p>Array of Components Type Name for aspect all components (entity need having all components type of the list)</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>Array</code></td>
+                <td class="name"><code>oneComponents</code></td>
             
 
             <td class="type">
@@ -367,14 +374,14 @@
 
             
 
-            <td class="description last"><p>of Components Type Name for aspect one components (entity need having one components type of the list)</p></td>
+            <td class="description last"><p>Array of Components Type Name for aspect one components (entity need having one components type of the list)</p></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>Array</code></td>
+                <td class="name"><code>excludeComponents</code></td>
             
 
             <td class="type">
@@ -391,7 +398,7 @@
 
             
 
-            <td class="description last"><p>of Components Type Name for aspect exclude components (entity need haven't component type of the list)</p></td>
+            <td class="description last"><p>Array of Components Type Name for aspect exclude components (entity need haven't component type of the list)</p></td>
         </tr>
 
     
@@ -476,7 +483,7 @@
 
     
     <div class="description">
-        <p>CheckProcessing is true foreach interval</p>
+        <p>Check if the system could be process.</p>
     </div>
     
 
@@ -500,7 +507,7 @@
 	<dd class="inherited-from">
 		<ul class="dummy">
 			<li>
-				<a href="IntervalSystem.html#checkProcessing">IntervalSystem#checkProcessing</a>
+				<a href="BaseSystem.html#checkProcessing">BaseSystem#checkProcessing</a>
 			</li>
 		</ul>
 	</dd>
@@ -2128,7 +2135,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
 	
-		on 2016-03-09T03:35:21+08:00
+		on 2016-04-30T20:15:36+08:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

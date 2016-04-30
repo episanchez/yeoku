@@ -31,9 +31,16 @@
 		<ul class="nav navbar-nav">
 			
 			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-ComponentBuilder.html">ComponentBuilder</a></li><li><a href="module-WorldBuilder.html">WorldBuilder</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Aspect.html">Aspect</a></li><li><a href="AspectSubscriptionManager.html">AspectSubscriptionManager</a></li><li><a href="BaseSystem.html">BaseSystem</a></li><li><a href="Component.html">Component</a></li><li><a href="ComponentManager.html">ComponentManager</a></li><li><a href="ComponentType.html">ComponentType</a></li><li><a href="Entity.html">Entity</a></li><li><a href="EntityManager.html">EntityManager</a></li><li><a href="EntitySubscription.html">EntitySubscription</a></li><li><a href="EntitySystem.html">EntitySystem</a></li><li><a href="IntervalIteratingSystem.html">IntervalIteratingSystem</a></li><li><a href="IntervalSystem.html">IntervalSystem</a></li><li><a href="IteratingSystem.html">IteratingSystem</a></li><li><a href="Manager.html">Manager</a></li><li><a href="World.html">World</a></li>
+					<li><a href="Archetype.html">Archetype</a></li><li><a href="ArchetypeManager.html">ArchetypeManager</a></li><li><a href="Aspect.html">Aspect</a></li><li><a href="AspectSubscriptionManager.html">AspectSubscriptionManager</a></li><li><a href="BaseSystem.html">BaseSystem</a></li><li><a href="ComponentManager.html">ComponentManager</a></li><li><a href="Entity.html">Entity</a></li><li><a href="EntityManager.html">EntityManager</a></li><li><a href="EntitySubscription.html">EntitySubscription</a></li><li><a href="EntitySystem.html">EntitySystem</a></li><li><a href="IntervalIteratingSystem.html">IntervalIteratingSystem</a></li><li><a href="IntervalSystem.html">IntervalSystem</a></li><li><a href="IteratingSystem.html">IteratingSystem</a></li><li><a href="Manager.html">Manager</a></li><li><a href="World.html">World</a></li><li><a href="WorldConfiguration.html">WorldConfiguration</a></li>
 				</ul>
 			</li>
 			
@@ -180,6 +187,73 @@
         <h3 class="subsection-title">Members</h3>
 
         <dl>
+            
+<hr>
+<dt class="name" id=".archetypeManager">
+    <h4><span class="type-signature">&lt;static> </span>archetypeManager<span class="type-signature"> :<a href="ArchetypeManager.html">ArchetypeManager</a></span></h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type"><a href="ArchetypeManager.html">ArchetypeManager</a></span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
             
 <hr>
 <dt class="name" id=".aspectSubscriptionManager">
@@ -603,84 +677,6 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="addChangedId"><span class="type-signature"></span>addChangedId()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Inform subscriber of states change</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
     <h4 class="name" id="addSystem"><span class="type-signature"></span>addSystem(systemName, system)</h4>
     
     
@@ -825,6 +821,104 @@
     
 
     
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getArchetypeManager"><span class="type-signature"></span>getArchetypeManager()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Get the Archetype Manager</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="ArchetypeManager.html">ArchetypeManager</a></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1505,6 +1599,84 @@
     
 </dd>
 
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="updateEntityStates"><span class="type-signature"></span>updateEntityStates()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>For each change (add, change component of an id, remove), the aspect Subscription Manager is call</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
         </dl>
     
 
@@ -1553,7 +1725,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
 	
-		on 2016-03-09T03:35:21+08:00
+		on 2016-04-30T20:15:36+08:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

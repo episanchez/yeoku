@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Class: Entity</title>
+	<title>Documentation Class: WorldConfiguration</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -70,13 +70,13 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Entity</h1>
+	<h1 class="page-title">Class: WorldConfiguration</h1>
 <section>
 
 <header>
     
         <h2>
-        Entity
+        WorldConfiguration
         </h2>
         
     
@@ -89,7 +89,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Entity"><span class="type-signature"></span>new Entity(manager, uid)</h4>
+    <h4 class="name" id="WorldConfiguration"><span class="type-signature"></span>new WorldConfiguration()</h4>
     
     
 </dt>
@@ -97,7 +97,7 @@
 
     
     <div class="description">
-        <p>Containers of components</p>
+        <p>Load World Configuration from json file</p>
     </div>
     
 
@@ -106,80 +106,6 @@
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>manager</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="ComponentManager.html">ComponentManager</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The component manager related to the entity</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>uid</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>uid of the entity</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -263,15 +189,15 @@
         <dl>
             
 <hr>
-<dt class="name" id=".componentsSet">
-    <h4><span class="type-signature">&lt;static> </span>componentsSet<span class="type-signature"> :number</span></h4>
+<dt class="name" id=".archetypes">
+    <h4><span class="type-signature">&lt;static> </span>archetypes<span class="type-signature"> :array</span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        <p>Components Ids of the entity</p>
+        <p>Array of archetypes json object</p>
     </div>
     
 
@@ -280,7 +206,7 @@
         <ul>
             <li>
                 
-<span class="param-type">number</span>
+<span class="param-type">array</span>
 
 
 
@@ -334,15 +260,15 @@
         
             
 <hr>
-<dt class="name" id=".manager">
-    <h4><span class="type-signature">&lt;static> </span>manager<span class="type-signature"> :<a href="ComponentManager.html">ComponentManager</a></span></h4>
+<dt class="name" id=".componentsTypes">
+    <h4><span class="type-signature">&lt;static> </span>componentsTypes<span class="type-signature"> :array</span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        <p>Component manager of the entity</p>
+        <p>Array of components json object</p>
     </div>
     
 
@@ -351,7 +277,7 @@
         <ul>
             <li>
                 
-<span class="param-type"><a href="ComponentManager.html">ComponentManager</a></span>
+<span class="param-type">array</span>
 
 
 
@@ -405,15 +331,15 @@
         
             
 <hr>
-<dt class="name" id=".uid">
-    <h4><span class="type-signature">&lt;static> </span>uid<span class="type-signature"> :number</span></h4>
+<dt class="name" id=".configPath">
+    <h4><span class="type-signature">&lt;static> </span>configPath<span class="type-signature"> :string</span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        <p>uid of the entity</p>
+        <p>The path of the configuration file</p>
     </div>
     
 
@@ -422,7 +348,149 @@
         <ul>
             <li>
                 
-<span class="param-type">number</span>
+<span class="param-type">string</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id=".optManagers">
+    <h4><span class="type-signature">&lt;static> </span>optManagers<span class="type-signature"> :array</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Array of optionnal managers object</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">array</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id=".systems">
+    <h4><span class="type-signature">&lt;static> </span>systems<span class="type-signature"> :array</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>Array of systems object</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">array</span>
 
 
 
@@ -483,7 +551,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="addComponent"><span class="type-signature"></span>addComponent(name)</h4>
+    <h4 class="name" id="clean"><span class="type-signature"></span>clean()</h4>
     
     
 </dt>
@@ -491,7 +559,7 @@
 
     
     <div class="description">
-        <p>Add a component to the entity</p>
+        <p>Clean all attributes of the world configuration</p>
     </div>
     
 
@@ -500,56 +568,6 @@
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Name of The Component</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -611,7 +629,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="getAllComponents"><span class="type-signature"></span>getAllComponents()</h4>
+    <h4 class="name" id="getArchetypes"><span class="type-signature"></span>getArchetypes()</h4>
     
     
 </dt>
@@ -619,7 +637,7 @@
 
     
     <div class="description">
-        <p>Get all components of the entity</p>
+        <p>Get the archetypes' array</p>
     </div>
     
 
@@ -685,7 +703,7 @@
     
             
 <div class="param-desc">
-    <p>Array of entity's components</p>
+    <p>Array of archetypes</p>
 </div>
 
 
@@ -696,7 +714,7 @@
     </dt>
     <dd>
         
-<span class="param-type">Array.&lt;Component></span>
+<span class="param-type">array</span>
 
 
 
@@ -713,7 +731,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="getComponentsSet"><span class="type-signature"></span>getComponentsSet()</h4>
+    <h4 class="name" id="getComponentsTypes"><span class="type-signature"></span>getComponentsTypes()</h4>
     
     
 </dt>
@@ -721,7 +739,7 @@
 
     
     <div class="description">
-        <p>Get the Components Set of the entity</p>
+        <p>Get the components' array</p>
     </div>
     
 
@@ -787,109 +805,7 @@
     
             
 <div class="param-desc">
-    <p>Set of components' id</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getUID"><span class="type-signature"></span>getUID()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Get the id of Entity</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>uid</p>
+    <p>Array of json component</p>
 </div>
 
 
@@ -917,7 +833,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="hasComponent"><span class="type-signature"></span>hasComponent(name)</h4>
+    <h4 class="name" id="getOptManagers"><span class="type-signature"></span>getOptManagers()</h4>
     
     
 </dt>
@@ -925,7 +841,7 @@
 
     
     <div class="description">
-        <p>Get the component of the entity with the name in parameter</p>
+        <p>Get the optManagers' array</p>
     </div>
     
 
@@ -934,56 +850,6 @@
     
 
     
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>Name of Component</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
     
 
     
@@ -1041,7 +907,7 @@
     
             
 <div class="param-desc">
-    <p>Boolean if the entity exists</p>
+    <p>Array of optManagers</p>
 </div>
 
 
@@ -1052,7 +918,7 @@
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type">number</span>
 
 
 
@@ -1069,7 +935,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="removeAllComponents"><span class="type-signature"></span>removeAllComponents()</h4>
+    <h4 class="name" id="getSystems"><span class="type-signature"></span>getSystems()</h4>
     
     
 </dt>
@@ -1077,7 +943,7 @@
 
     
     <div class="description">
-        <p>Remove all components of the entity</p>
+        <p>Get the systems' array</p>
     </div>
     
 
@@ -1139,6 +1005,30 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Array of systems</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1147,7 +1037,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="removeComponent"><span class="type-signature"></span>removeComponent(name)</h4>
+    <h4 class="name" id="LoadConfFromFile"><span class="type-signature"></span>LoadConfFromFile(pathFile)</h4>
     
     
 </dt>
@@ -1155,7 +1045,7 @@
 
     
     <div class="description">
-        <p>Remove a component to the entity</p>
+        <p>Load the world configuration from json file</p>
     </div>
     
 
@@ -1190,7 +1080,7 @@
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>pathFile</code></td>
             
 
             <td class="type">
@@ -1207,7 +1097,7 @@
 
             
 
-            <td class="description last"><p>Name of the component</p></td>
+            <td class="description last"><p>The path of world configuration file</p></td>
         </tr>
 
     

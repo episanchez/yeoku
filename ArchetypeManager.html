@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Documentation Class: Entity</title>
+	<title>Documentation Class: ArchetypeManager</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -70,13 +70,13 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Entity</h1>
+	<h1 class="page-title">Class: ArchetypeManager</h1>
 <section>
 
 <header>
     
         <h2>
-        Entity
+        ArchetypeManager
         </h2>
         
     
@@ -89,7 +89,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Entity"><span class="type-signature"></span>new Entity(manager, uid)</h4>
+    <h4 class="name" id="ArchetypeManager"><span class="type-signature"></span>new ArchetypeManager(world)</h4>
     
     
 </dt>
@@ -97,7 +97,7 @@
 
     
     <div class="description">
-        <p>Containers of components</p>
+        <p>ArchetypeManager</p>
     </div>
     
 
@@ -132,13 +132,13 @@
 
         <tr>
             
-                <td class="name"><code>manager</code></td>
+                <td class="name"><code>world</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><a href="ComponentManager.html">ComponentManager</a></span>
+<span class="param-type"><a href="World.html">World</a></span>
 
 
 
@@ -149,31 +149,7 @@
 
             
 
-            <td class="description last"><p>The component manager related to the entity</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>uid</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>uid of the entity</p></td>
+            <td class="description last"><p>A world instance</p></td>
         </tr>
 
     
@@ -263,15 +239,15 @@
         <dl>
             
 <hr>
-<dt class="name" id=".componentsSet">
-    <h4><span class="type-signature">&lt;static> </span>componentsSet<span class="type-signature"> :number</span></h4>
+<dt class="name" id=".archetypes">
+    <h4><span class="type-signature">&lt;static> </span>archetypes<span class="type-signature"> :Object</span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        <p>Components Ids of the entity</p>
+        <p>A set of archetypes</p>
     </div>
     
 
@@ -280,7 +256,7 @@
         <ul>
             <li>
                 
-<span class="param-type">number</span>
+<span class="param-type">Object</span>
 
 
 
@@ -334,15 +310,15 @@
         
             
 <hr>
-<dt class="name" id=".manager">
-    <h4><span class="type-signature">&lt;static> </span>manager<span class="type-signature"> :<a href="ComponentManager.html">ComponentManager</a></span></h4>
+<dt class="name" id=".world">
+    <h4><span class="type-signature">&lt;static> </span>world<span class="type-signature"> :<a href="World.html">World</a></span></h4>
 
     
 </dt>
 <dd>
     
     <div class="description">
-        <p>Component manager of the entity</p>
+        <p>Copy of World instance</p>
     </div>
     
 
@@ -351,78 +327,7 @@
         <ul>
             <li>
                 
-<span class="param-type"><a href="ComponentManager.html">ComponentManager</a></span>
-
-
-
-            </li>
-        </ul>
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt class="name" id=".uid">
-    <h4><span class="type-signature">&lt;static> </span>uid<span class="type-signature"> :number</span></h4>
-
-    
-</dt>
-<dd>
-    
-    <div class="description">
-        <p>uid of the entity</p>
-    </div>
-    
-
-    
-        <h5>Type:</h5>
-        <ul>
-            <li>
-                
-<span class="param-type">number</span>
+<span class="param-type"><a href="World.html">World</a></span>
 
 
 
@@ -483,7 +388,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="addComponent"><span class="type-signature"></span>addComponent(name)</h4>
+    <h4 class="name" id="addArchetype"><span class="type-signature"></span>addArchetype(jsonArchetype)</h4>
     
     
 </dt>
@@ -491,7 +396,7 @@
 
     
     <div class="description">
-        <p>Add a component to the entity</p>
+        <p>Build and Add an archetype to the manager</p>
     </div>
     
 
@@ -526,13 +431,13 @@
 
         <tr>
             
-                <td class="name"><code>name</code></td>
+                <td class="name"><code>jsonArchetype</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">jsonArchetype</span>
 
 
 
@@ -543,7 +448,7 @@
 
             
 
-            <td class="description last"><p>Name of The Component</p></td>
+            <td class="description last"><p>A json archetype object</p></td>
         </tr>
 
     
@@ -611,7 +516,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="getAllComponents"><span class="type-signature"></span>getAllComponents()</h4>
+    <h4 class="name" id="getArchetypeByName"><span class="type-signature"></span>getArchetypeByName(name)</h4>
     
     
 </dt>
@@ -619,313 +524,7 @@
 
     
     <div class="description">
-        <p>Get all components of the entity</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>Array of entity's components</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array.&lt;Component></span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getComponentsSet"><span class="type-signature"></span>getComponentsSet()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Get the Components Set of the entity</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>Set of components' id</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Array</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getUID"><span class="type-signature"></span>getUID()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Get the id of Entity</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    <p>uid</p>
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">number</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="hasComponent"><span class="type-signature"></span>hasComponent(name)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>Get the component of the entity with the name in parameter</p>
+        <p>Get an archetype by name</p>
     </div>
     
 
@@ -977,7 +576,7 @@
 
             
 
-            <td class="description last"><p>Name of Component</p></td>
+            <td class="description last"><p>The name of the archetype</p></td>
         </tr>
 
     
@@ -1041,7 +640,7 @@
     
             
 <div class="param-desc">
-    <p>Boolean if the entity exists</p>
+    <p>An archetype object</p>
 </div>
 
 
@@ -1052,7 +651,7 @@
     </dt>
     <dd>
         
-<span class="param-type">boolean</span>
+<span class="param-type"><a href="Archetype.html">Archetype</a></span>
 
 
 
@@ -1069,7 +668,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="removeAllComponents"><span class="type-signature"></span>removeAllComponents()</h4>
+    <h4 class="name" id="getArchetypes"><span class="type-signature"></span>getArchetypes()</h4>
     
     
 </dt>
@@ -1077,7 +676,7 @@
 
     
     <div class="description">
-        <p>Remove all components of the entity</p>
+        <p>Get a set of archetypes</p>
     </div>
     
 
@@ -1139,6 +738,30 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Set of archetypes</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -1147,7 +770,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="removeComponent"><span class="type-signature"></span>removeComponent(name)</h4>
+    <h4 class="name" id="removeArchetype"><span class="type-signature"></span>removeArchetype(name)</h4>
     
     
 </dt>
@@ -1155,7 +778,7 @@
 
     
     <div class="description">
-        <p>Remove a component to the entity</p>
+        <p>Remove an archetype</p>
     </div>
     
 
@@ -1207,7 +830,7 @@
 
             
 
-            <td class="description last"><p>Name of the component</p></td>
+            <td class="description last"><p>The name of the archetype</p></td>
         </tr>
 
     
@@ -1319,7 +942,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
 	
-		on 2016-04-30T20:15:36+08:00
+		on 2016-04-30T20:15:35+08:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

@@ -31,9 +31,16 @@
 		<ul class="nav navbar-nav">
 			
 			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-ComponentBuilder.html">ComponentBuilder</a></li><li><a href="module-WorldBuilder.html">WorldBuilder</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Aspect.html">Aspect</a></li><li><a href="AspectSubscriptionManager.html">AspectSubscriptionManager</a></li><li><a href="BaseSystem.html">BaseSystem</a></li><li><a href="Component.html">Component</a></li><li><a href="ComponentManager.html">ComponentManager</a></li><li><a href="ComponentType.html">ComponentType</a></li><li><a href="Entity.html">Entity</a></li><li><a href="EntityManager.html">EntityManager</a></li><li><a href="EntitySubscription.html">EntitySubscription</a></li><li><a href="EntitySystem.html">EntitySystem</a></li><li><a href="IntervalIteratingSystem.html">IntervalIteratingSystem</a></li><li><a href="IntervalSystem.html">IntervalSystem</a></li><li><a href="IteratingSystem.html">IteratingSystem</a></li><li><a href="Manager.html">Manager</a></li><li><a href="World.html">World</a></li>
+					<li><a href="Archetype.html">Archetype</a></li><li><a href="ArchetypeManager.html">ArchetypeManager</a></li><li><a href="Aspect.html">Aspect</a></li><li><a href="AspectSubscriptionManager.html">AspectSubscriptionManager</a></li><li><a href="BaseSystem.html">BaseSystem</a></li><li><a href="ComponentManager.html">ComponentManager</a></li><li><a href="Entity.html">Entity</a></li><li><a href="EntityManager.html">EntityManager</a></li><li><a href="EntitySubscription.html">EntitySubscription</a></li><li><a href="EntitySystem.html">EntitySystem</a></li><li><a href="IntervalIteratingSystem.html">IntervalIteratingSystem</a></li><li><a href="IntervalSystem.html">IntervalSystem</a></li><li><a href="IteratingSystem.html">IteratingSystem</a></li><li><a href="Manager.html">Manager</a></li><li><a href="World.html">World</a></li><li><a href="WorldConfiguration.html">WorldConfiguration</a></li>
 				</ul>
 			</li>
 			
@@ -85,69 +92,215 @@
 
     <section class="readme-section">
         <article><h1>Yeoku</h1><p>Yeoku is an Entity-Component-System(ECS) framework in javascript based on Artemis-odb (https://github.com/junkdog/artemis-odb).</p>
+<p>API Documentation : http://episanchez.github.io/yeoku/</p>
+<p>ps : If you use the old version of yeoku (0.0.x) , you need to migrate your code in following the next documentation. This version is not compatible with the older versions.</p>
 <h2>Installation</h2><pre class="prettyprint source"><code>npm install yeoku</code></pre><h2>Documentation</h2><h3>World</h3><p>The world is a main piece of the framework, this one contains your entities, your systems and your components.</p>
 <p>Upon the world instanciation, all systems and managers initialized.</p>
-<h4>Processing World</h4><p>In this case, we process the world every 100 miliseconds</p>
-<pre class="prettyprint source lang-javascript"><code>var world1 = new World();
+<h4>Build a World from a configuration file</h4><p>It is advisable to build your world from a json configuration file because it is easier for loading all your systems, optionnal managers, components and archetypes.</p>
+<h5>Make your Configuration file</h5><p>For each elements that you want to load, you need to specify the type, the file extension (json or js) and the path of the element's file or directory.<br>For the type attribute, you can select if the element is a module or into a module, a class or directory.<br>If the element is into a module, you have to add an attribute &quot;name&quot; and fill it with the element's name.</p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;FileName&quot;:&quot;WorldConf&quot;,
+    &quot;Version&quot;: 0.3,
+    &quot;ComponentsTypes&quot;: [
+        {
+            &quot;type&quot;: &quot;Class&quot;,
+            &quot;fileExtension&quot;: &quot;json&quot;,
+            &quot;path&quot;: &quot;./componentExample.json&quot;
+        },
+        {
+            &quot;type&quot;: &quot;Module&quot;,
+            &quot;fileExtension&quot;: &quot;json&quot;,
+            &quot;path&quot;: &quot;./mockComponents.json&quot;
+        }
+    ],
+    &quot;Systems&quot;: [
+        {
+            &quot;name&quot; : &quot;BasicSystem&quot;,
+            &quot;type&quot;: &quot;Module&quot;,
+            &quot;fileExtension&quot;: &quot;js&quot;,
+            &quot;path&quot;: &quot;../mockData&quot;
+        },
+        {
+            &quot;name&quot; : &quot;ExtendSystem&quot;,
+            &quot;type&quot;: &quot;Module&quot;,
+            &quot;fileExtension&quot;: &quot;js&quot;,
+            &quot;path&quot; : &quot;../mockData&quot;
+        }
+    ],
+    &quot;OptManagers&quot;:[],
+    &quot;Archetypes&quot;: [
+        {
+            &quot;type&quot;: &quot;Class&quot;,
+            &quot;fileExtension&quot;: &quot;json&quot;,
+            &quot;path&quot;: &quot;./archetypeExample.json&quot;
+        },
+        {
+            &quot;type&quot;: &quot;Module&quot;,
+            &quot;fileExtension&quot;: &quot;json&quot;,
+            &quot;path&quot;: &quot;./mockArchetypes.json&quot;
+        }
+    ]
+}</code></pre><h4>Load your configuration file and build a world with it</h4><p>For beginning, you have to create a WorldConfiguration Object and load your json configuration file. When your configuration loading got well, you can build your World with WorldBuilder and your WorldConfiguration Object. After these steps, your World Object is built and you can use it.</p>
+<pre class="prettyprint source lang-javascript"><code>var WorldConfiguration = require('yeoku').WorldConfiguration;
+var WorldBuilder = require('yeoku').WorldBuilder;
+
+// create a WorldConfiguration Object and load a json file
+wc = new WorldConfiguration();
+wc.LoadConfFromFile(__dirname + 'worldConf.json');
+
+//Build your new World with WorldBuilder
+var testWorld = WorldBuilder.BuildWithWorldConfiguration(wc);
+testWorld.getSystem('BasicSystem'); // return ExampleSystem Object</code></pre><h4>Processing World</h4><p>In this case, we process the world every 100 miliseconds</p>
+<pre class="prettyprint source lang-javascript"><code>var World = require('yeoku').World;
+
+var world1 = new World();
 
 while (42){
     world.process();
     sleep(100);
 }</code></pre><h3>Component</h3><p>Components are a pure data classes (getter/setter) with optionally some helpers methods</p>
-<h4>Create your own component</h4><p>If you want to create your own Component, you have to inherit from 'yeoku.Component' and create a component Type related to this class.</p>
-<pre class="prettyprint source lang-javascript"><code>// testComponent.js
-var BaseComponent = require('yeoku').Component;
-var ComponentType = require('yeoku').ComponentType;
-var util = require('util');
+<h4>Create a json component</h4><p>Create a json component is very simple, for each one, you need specify the name, the type (Module), the version and the attributes and for each attribute, you need the name and the value (for example : &quot;name&quot;:&quot;value&quot;).</p>
+<p>A json Class Component :</p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;name&quot;: &quot;ComponentExample&quot;,
+    &quot;type&quot;: &quot;Class&quot;,
+    &quot;version&quot;: 0.2,
+    &quot;attributes&quot;:{
+        &quot;attr1&quot;: 20,
+        &quot;attr2&quot;: 30
+    }
+}</code></pre><p>To simplify the components making, you could create a json components' module, you need specify the name, the type (Module), the version and all the components' object. You could following the next example :</p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;name&quot;: &quot;mockComponents&quot;,
+    &quot;type&quot;: &quot;Module&quot;,
+    &quot;version&quot;:0.3,
+    &quot;objects&quot;:{
+        &quot;WarriorComp&quot;:{
+            &quot;name&quot;: &quot;WarriorComp&quot;,
+            &quot;attributes&quot;:{
+                &quot;heresy&quot;:10,
+                &quot;combo&quot;:0
+            }
+        },
+        &quot;MageComp&quot;:{
+            &quot;name&quot;: &quot;MageComp&quot;,
+            &quot;attributes&quot;:{
+                &quot;mana&quot;:42,
+                &quot;flux&quot;:15
+            }
+        }
+    }
+}</code></pre><h4>Build Your Component separatly of WorldBuilder With ComponentBuilder</h4><p>If you want to build your component separatly of WorldBuilder, you can use ComponentBuilder. When you object is built, you can create instances of this one with &quot;Object.create(genericObject)&quot;.</p>
+<pre class="prettyprint source lang-javascript"><code>var ComponentBuilder = require('yeoku').ComponentBuilder;
 
-var TestComponent = function(){
-    BaseComponent.call(new ComponentType(0, 'testComponent', this)); // params {id, name, copy of the component}    
+var lc = ComponentBuilder.buildComponentFromFile(__dirname + 'ComponentExample.json');
 
-    this.intData = 0;
-    this.rawData = null;
-};
+// First Instance
+var c1 = Object.create(lc);
+// Second Instance
+var c2 = Object.create(lc);</code></pre><h4>Add or Delete a Component</h4><p>If you want add or delete a component of your world, you have to use the component manager, this one add or delete the component and add or delete component instances.</p>
+<pre class="prettyprint source lang-javascript"><code>var World = require('yeoku').World;
+var ComponentBuilder = require('yeoku').ComponentBuilder;
+var world = new World();
+// build your component
+var lc = ComponentBuilder.buildComponentFromFile(__dirname + 'ComponentExample.json');
 
-util.inherits(TestComponent, BaseComponent);
+// Add your component to the manager
+world.getComponentManager().create(lc);
+world.getComponentManager().getComponentTypeByName(&quot;ComponentExample&quot;); // give the component type
 
-TestComponent.prototype.getIntData = function(){
-    return this.intData;
-};
+// Remove your component to the manager
+world.getComponentManager().removeComponentType(&quot;ComponentExample&quot;);
+world.getComponentManager().getComponentTypeByName(&quot;ComponentExample&quot;); // undefined</code></pre><h3>Entity</h3><p>Entity are containers of related components.</p>
+<h4>Make your Archetype</h4><p>The Archetype is an entity's template with all related components and sometimes default value of components' attributes. For example, you could have a player archetype or mob archetype.</p>
+<p>You could make a simple archetype, following the next example : </p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;name&quot;: &quot;ArchetypeExample&quot;,
+    &quot;type&quot;: &quot;Class&quot;,
+    &quot;version&quot;: 0.2,
+    &quot;components&quot;:{
+        //without default value
+        &quot;WarriorComp&quot;:{},
+        //with default value
+        &quot;MageComp&quot;:{
+            &quot;mana&quot;:42,
+            &quot;flux&quot;:15
+        }
+    }
+}</code></pre><p>or you could make a module archetype, following the next example :</p>
+<pre class="prettyprint source lang-json"><code>{
+    &quot;name&quot;: &quot;MockArchetypes&quot;,
+    &quot;type&quot;: &quot;Module&quot;,
+    &quot;version&quot;: 0.3,
+    &quot;objects&quot;:{
+        //Warrior Archetype
+        &quot;Warrior&quot;:{
+            &quot;name&quot;: &quot;Warrior&quot;,
+            &quot;components&quot;:{
+                &quot;WarriorComp&quot;:{
+                    &quot;heresy&quot;:42,
+                    &quot;combo&quot;:42
+                }
+            }
+        },
+        //Mage Archetype
+        &quot;Mage&quot;:{
+            &quot;name&quot;: &quot;Mage&quot;,
+            &quot;components&quot;:{
+                &quot;MageComp&quot;:{
+                    &quot;mana&quot;:84,
+                    &quot;flux&quot;:84
+                }
+            }
+        }
+    }
+}</code></pre><h4>Build your archetype without archetype manager</h4><p>If you want to build an archetype without its manager, you can use the archetype builder with a json archetype and world objects. You have to load the components related to the archetype before building your archetype because these ones are checked.</p>
+<pre class="prettyprint source lang-javascript"><code>// ... {world}
+var jsonArchetype = {
+            name: 'ArchetypeExample',
+            version: 0.2,
+            components:{
+                WarriorComp:{
+                    heresy:10,
+                    combo:0
+                },
+                MageComp:{
+                    mana:42,
+                    flux:15
+                }
+            }
+        };
+var ArchetypeBuilder = require('yeoku').ArchetypeBuilder;
 
-TestComponent.prototype.getRawData = function(){
-    return this.rawData;
-};
+var archetype = ArchetypeBuilder.buildArchetypeFromJson(jsonArchetype, world);</code></pre><h4>Add or Remove your archetype to the manager</h4><p>You can add or remove your archetype with the archetype manager.</p>
+<pre class="prettyprint source lang-javascript"><code>// ... {world, jsonArchetype}
 
-TestComponent.prototype.setIntData = function(intValue){
-    this.intData = inValue;    
-};
-
-TestComponent.prototype.setRawData = function(rawValue){
-    this.rawData = rawValue;
-};
-
-module.exports = TestComponents;</code></pre><h4>Add/delete Component Class</h4><p>You have to use the ComponentManager, this one has a array of your Component Classes and a double array of the componentType by entities.</p>
-<pre class="prettyprint source lang-javascript"><code>var TestComponent = require('./testComponent');
-
-world.getComponentManager().create(&quot;testComponent&quot;, TestComponent); // params {name, Component Class}
-world.getComponentManager().getComponentTypeByName(&quot;testComponent&quot;); // give the component type
-
-world.getComponentManager().removeComponentType(&quot;testComponent&quot;);
-world.getComponentManager().getComponentTypeByName(&quot;testComponent&quot;); // undefined</code></pre><h3>Entity</h3><p>Entity are containers of related components.</p>
-<h4>Create Entity</h4><p>Entities managed by EntityManager, this one could be created it, deleted it.<br>Each entity has a copy of ComponentsManager, with this one, you can add/delete a component to the entity.</p>
-<pre class="prettyprint source lang-javascript"><code>world.getEntityManager().createEntity();</code></pre><h4>Add/delete Component to the Entity</h4><pre class="prettyprint source lang-javascript"><code>world.getEntityManager.createEntity();
+// add the archetype to the manager
+world.getArchetypeManager().addArchetype(jsonArchetype);
+world.getArchetypeManager().getArchetypeByName('ArchetypeExample'); // return Archetype
+// remove the archetype to the manager
+world.getArchetypeManager().removeArchetype('ArchetypeExample');
+world.getArchetypeManager().getArchetypeByName('ArchetypeExample'); // return undefined</code></pre><h4>Create Entity</h4><h5>Create Entity without archetype</h5><p>Entities managed by EntityManager, this one could be created it, deleted it.<br>Each entity has a copy of ComponentsManager, with this one, you can add/delete a component to the entity.</p>
+<pre class="prettyprint source lang-javascript"><code>// ... {world}
+world.getEntityManager().createEntity();</code></pre><h5>Create Entity With Archetype</h5><p>You can create an entity with the name of the archetype as &quot;Player&quot; or &quot;Mob&quot; , if you loaded it before.</p>
+<pre class="prettyprint source lang-javascript"><code>// ... {world}
+testWorld.getEntityManager().createEntityWithArchetypeName('ArchetypeExample');</code></pre><h5>Add or Delete Component to the Entity</h5><p>You can add a component to an entity with the next methods : addComponent and removeComponent of your Entity instances.</p>
+<pre class="prettyprint source lang-javascript"><code>world.getEntityManager().createEntity();
 
 var soldier = world.getEntityManager().getEntityById(0); // Give the entity last created
+// Add the component to your entity component's set and your component Manager.
 soldier.addComponent(&quot;BasicComponent&quot;);
-soldier.hasComponent(&quot;BasicComponent&quot;); // has to return true
+soldier.hasComponent(&quot;BasicComponent&quot;); // Return true
 
+// Remove the component to your entity component's set and your component Manager.
 soldier.removeComponent(&quot;BasicComponent&quot;);
-soldier.hasComponent(&quot;BasicComponent&quot;);</code></pre><h4>Querying for entities</h4><p>Systems have built in mechanisms for finding entities which have a specific set of Components (see Aspect).</p>
+soldier.hasComponent(&quot;BasicComponent&quot;); // Return false</code></pre><h4>Querying for entities</h4><p>Systems have built in mechanisms for finding entities which have a specific set of Components (see Aspect).</p>
 <h3>System</h3><p>Systems encapsulate game logic, typically operating on a family of entities.</p>
 <h4>Create a system</h4><ul>
 <li>Extend to a specialized system class (for exemple, intervalSystem or IteratingSystem)</li>
 <li>Register it on your world</li>
 </ul>
-<h5>Example</h5><p>*your own system : </p>
+<h5>Example</h5><p>Your own system : </p>
 <pre class="prettyprint source lang-javascript"><code>// exampleSystem.js : This system inherits from iteratingSystem
 
 var IteratingSystem = require('yeoku').IteratingSystem;
@@ -173,14 +326,14 @@ ExampleSystem.prototype.processEntity(entity){
     soldier.BasicComponent.setRawData(&quot;42&quot;);
 };
 
-module.exports = ExampleSystem;</code></pre><p>*registration of your system and process it :</p>
+module.exports = ExampleSystem;</code></pre><p>Register your system and process it :</p>
 <pre class="prettyprint source lang-javascript"><code>var ExampleSystem = require('./exampleSystem');
-var TestComponent = require('./testComponent');
+var OldComponent = require('./OldComponent');
 
 var testWorld = new World();
 
 // you need to add your Components before your systems
-testWorld.getComponentManager().addComponent(&quot;TestComponent&quot;, TestComponent);
+testWorld.getComponentManager().addComponent(&quot;OldComponent&quot;, OldComponent);
 
 // Add your system
 testWorld.addSystem(&quot;ExampleSystem&quot;, ExampleSystem); // param {name, class}
@@ -196,11 +349,12 @@ testWorld.process();
 soldier.BasicComponent.getIntData(); // result : 42
 soldier.BasicComponent.getRawData(); // result : &quot;42&quot;</code></pre><h4>Skip Processing</h4><p>Override checkProcessing to return false if you want to skip the system during processing.</p>
 <h3>Aspect</h3><p>Aspects match Entities based on a Component pattern, defining the type of entities a system is interested in. Instead of thinking of systems processing entities, they rather process aspects of entities.</p>
-<h2>Todo</h2><ul>
-<li>Entity Archetype</li>
-<li>Implement should sync entity system and delayed systems</li>
-<li>Generate a API documentation and put more comments.</li>
-</ul></article>
+<p>##License</p>
+<p>The MIT License (MIT)</p>
+<p>Copyright (c) 2016 Charlie QUILLARD</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy<br>of this software and associated documentation files (the &quot;Software&quot;), to deal<br>in the Software without restriction, including without limitation the rights<br>to use, copy, modify, merge, publish, distribute, sublicense, and/or sell<br>copies of the Software, and to permit persons to whom the Software is<br>furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all<br>copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR<br>IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,<br>FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE<br>AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER<br>LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,<br>OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE<br>SOFTWARE.</p></article>
     </section>
 
 
@@ -244,7 +398,7 @@ soldier.BasicComponent.getRawData(); // result : &quot;42&quot;</code></pre><h4>
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a>
 	
-		on 2016-03-09T03:35:21+08:00
+		on 2016-04-30T20:15:35+08:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
