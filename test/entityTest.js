@@ -1,10 +1,10 @@
 var should = require('should');
 
-var Archetype = require('entity/archetype');
-var ArchetypeBuilder = require('entity/archetypeBuilder');
-var Entity = require('entity/entity');
-var World = require('world');
-var EntityManager = require('manager/entityManager');
+var Archetype = libRequire('entity/archetype');
+var ArchetypeBuilder = libRequire('entity/archetypeBuilder');
+var Entity = libRequire('entity/entity');
+var World = libRequire('world');
+var EntityManager = libRequire('manager/entityManager');
 
 describe('Entity Features Testing', function(){
 	var world = new World();
@@ -35,8 +35,8 @@ describe('Entity Features Testing', function(){
 
 	  	var WarriorComp = {name:'WarriorComp', attributes:{heresy:10, combo:0}};
       	var MageComp = {name:'MageComp', attributes:{mana:10, flux:12}};
-      	var wcf = require('component/componentBuilder').createComponentFromJson(WarriorComp);
-      	var mcf = require('component/componentBuilder').createComponentFromJson(MageComp);
+      	var wcf = libRequire('component/componentBuilder').createComponentFromJson(WarriorComp);
+      	var mcf = libRequire('component/componentBuilder').createComponentFromJson(MageComp);
       	
       	world.getComponentManager().create(mcf);
       	world.getComponentManager().create(wcf);

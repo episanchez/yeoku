@@ -1,9 +1,9 @@
 var should = require('should');
 
-var BaseSystem = require('system/baseSystem');
-var EntitySystem = require('system/entitySystem');
-var IteratingSystem = require('system/iteratingSystem');
-var IntervalSystem = require('system/intervalSystem');
+var BaseSystem = libRequire('system/baseSystem');
+var EntitySystem = libRequire('system/entitySystem');
+var IteratingSystem = libRequire('system/iteratingSystem');
+var IntervalSystem = libRequire('system/intervalSystem');
 
 describe('System Features Testing', function(){
 	describe('#BaseSystem Regression Tests', function(){

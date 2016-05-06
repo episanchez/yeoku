@@ -1,6 +1,7 @@
 var should = require('should');
-var Entity = require('entity/entity');
-var ComponentManager = require('manager/componentManager');
+
+var Entity = libRequire('entity/entity');
+var ComponentManager = libRequire('manager/componentManager');
 
 var mockData = require('./mockData');
 
@@ -8,7 +9,7 @@ var mockData = require('./mockData');
 // Have to do (new component system)
 describe('Component Features Testing', function() {
   describe('#Component Regression Tests', function(){
-    var componentBuilder = require('component/componentBuilder');
+    var componentBuilder = libRequire('component/componentBuilder');
     var genericObject = null;
     var firstInstance = null;
     var secondInstance = null;
@@ -60,8 +61,8 @@ describe('Component Features Testing', function() {
       var WarriorComp = {name:'WarriorComp', attributes:{heresy:10, combo:0}};
       var MageComp = {name:'MageComp', attributes:{mana:10, flux:12}};
 
-      var wcf = require('component/componentBuilder').createComponentFromJson(WarriorComp);
-      var mcf = require('component/componentBuilder').createComponentFromJson(MageComp);
+      var wcf = libRequire('component/componentBuilder').createComponentFromJson(WarriorComp);
+      var mcf = libRequire('component/componentBuilder').createComponentFromJson(MageComp);
       should.exist(mcf);
       should.exist(wcf);
       componentManager.create(wcf);

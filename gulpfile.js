@@ -10,7 +10,9 @@ gulp.task('doc', function (cb) {
 });
 
 gulp.task('mocha', () => {
-    require('app-module-path').addPath(__dirname + '/lib');
+    global.libRequire = function(name){
+    return require(__dirname + '/lib/' + name);
+    }
     return gulp.src('test/*.js')
         .pipe(mocha())
         .once('error', (error) => {

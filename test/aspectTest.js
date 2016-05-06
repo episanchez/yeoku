@@ -1,10 +1,10 @@
 var should = require('should');
 
-var World = require('world');
-var Aspect = require('aspect/aspect');
-var EntitySubscription = require('aspect/entitySubscription');
-var AspectSubscriptionManager = require('manager/aspectSubscriptionManager');
-var Entity = require('entity/entity');
+var World = libRequire('world');
+var Aspect = libRequire('aspect/aspect');
+var EntitySubscription = libRequire('aspect/entitySubscription');
+var AspectSubscriptionManager = libRequire('manager/aspectSubscriptionManager');
+var Entity = libRequire('entity/entity');
 
 describe('Aspect Features Testing', function() {
   /**
