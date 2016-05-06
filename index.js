@@ -1,18 +1,20 @@
-require('app-module-path').addPath(__dirname + '/lib');
+global.libRequire = function(name){
+    return require(__dirname + '/lib/' + name);
+}
 
 module.exports = {
-    World    : require('world'),
-    WorldBuilder : require('worldBuilder'),
-    WorldConfiguration : require('worldConfiguration'),
-    ComponentBuilder : require('component/componentBuilder'),
-    Entity : require('entity/entity'),
-    ArchetypeBuilder : require('entity/archetypeBuilder'),
- 	Aspect : require('aspect/aspect'),
- 	EntitySubscription : require('aspect/entitySubscription'),
- 	Manager : require('manager/manager'),
-    BaseSystem : require('system/baseSystem'),
-    EntitySystem : require('system/entitySystem'),
-    IntervalSystem : require('system/intervalSystem'),
-    IteratingSystem : require('system/iteratingSystem'),
-    IntervalIteratingSystem : require('system/IntervalIteratingSystem')
+    World    : libRequire('world'),
+    WorldBuilder : libRequire('worldBuilder'),
+    WorldConfiguration : libRequire('worldConfiguration'),
+    ComponentBuilder : libRequire('component/componentBuilder'),
+    Entity : libRequire('entity/entity'),
+    ArchetypeBuilder : libRequire('entity/archetypeBuilder'),
+ 	Aspect : libRequire('aspect/aspect'),
+ 	EntitySubscription : libRequire('aspect/entitySubscription'),
+ 	Manager : libRequire('manager/manager'),
+    BaseSystem : libRequire('system/baseSystem'),
+    EntitySystem : libRequire('system/entitySystem'),
+    IntervalSystem : libRequire('system/intervalSystem'),
+    IteratingSystem : libRequire('system/iteratingSystem'),
+    IntervalIteratingSystem : libRequire('system/intervalIteratingSystem')
 };

@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "winston": "2.1.1",
-    "app-module-path": "1.0.5"
+    "sequelize" : "3.22.0 ",
   },
   "devDependencies": {
     "should": "3.3.1",
