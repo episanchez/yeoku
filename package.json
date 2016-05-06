@@ -22,8 +22,7 @@
     "url": "https://github.com/episanchez/yeoku/issues"
   },
   "dependencies": {
-    "winston": "2.1.1",
-    "sequelize" : "3.22.0 ",
+    "winston": "2.1.1"
   },
   "devDependencies": {
     "should": "3.3.1",
