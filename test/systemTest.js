@@ -1,5 +1,7 @@
 var should = require('should');
 
+var World = libRequire('world');
+
 var BaseSystem = libRequire('system/baseSystem');
 var EntitySystem = libRequire('system/entitySystem');
 var IteratingSystem = libRequire('system/iteratingSystem');
@@ -35,6 +37,19 @@ describe('System Features Testing', function(){
 			should.exist(entitySystem.removed);
 			should.exist(entitySystem.inserted);
 			done();
+		});
+	});
+	describe('#IntervalSystem', function(){
+		var world = new World();
+		it('checkProcessing return value should be equal to true', function(done){
+			var intervalSystem = new IntervalSystem(15);
+
+			world.addSystem('toto', intervalSystem);
+			require('child_process').execSync("sleep 0.015");
+			(intervalSystem.checkProcessing()).should.be.equal(true);
+			require('child_process').execSync("sleep 0.015");
+			(intervalSystem.checkProcessing()).should.be.equal(true);
+			done();		
 		});
 	});
 });
