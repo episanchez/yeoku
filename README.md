@@ -197,7 +197,7 @@ Entity are containers of related components.
 
 The Archetype is an entity's template with all related components and sometimes default value of components' attributes. For example, you could have a player archetype or mob archetype.
 
-You could make a simple archetype, following the next example : 
+You could make a simple archetype, following the next example :
 
 ```json
 {
@@ -205,9 +205,7 @@ You could make a simple archetype, following the next example :
 	"type": "Class",
 	"version": 0.2,
 	"components":{
-		//without default value
 		"WarriorComp":{},
-		//with default value
 		"MageComp":{
 			"mana":42,
 			"flux":15
@@ -224,7 +222,6 @@ or you could make a module archetype, following the next example :
 	"type": "Module",
 	"version": 0.3,
 	"objects":{
-		//Warrior Archetype
 		"Warrior":{
 			"name": "Warrior",
 			"components":{
@@ -234,7 +231,6 @@ or you could make a module archetype, following the next example :
 				}
 			}
 		},
-		//Mage Archetype
 		"Mage":{
 			"name": "Mage",
 			"components":{
@@ -292,7 +288,7 @@ world.getArchetypeManager().getArchetypeByName('ArchetypeExample'); // return un
 
 ##### Create Entity without archetype
 
-Entities managed by EntityManager, this one could be created it, deleted it. 
+Entities managed by EntityManager, this one could be created it, deleted it.
 Each entity has a copy of ComponentsManager, with this one, you can add/delete a component to the entity.
 
 ```javascript
@@ -341,7 +337,7 @@ Systems encapsulate game logic, typically operating on a family of entities.
 
 ##### Example
 
-Your own system : 
+Your own system :
 
 ```javascript
 // exampleSystem.js : This system inherits from iteratingSystem
