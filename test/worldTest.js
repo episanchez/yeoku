@@ -20,6 +20,7 @@ describe('World Features Testing', function() {
       should.exist(mWorld.getComponentManager);
       should.exist(mWorld.process);
       should.exist(mWorld.addSystem);
+      should.exist(mWorld.addManager);
       should.exist(mWorld.removeSystem);
       should.exist(mWorld.addChangedId);
       should.exist(mWorld.addRemovedId);
@@ -95,6 +96,12 @@ describe('World Features Testing', function() {
       mWorld.process();
 
       (entity.WarriorComp).should.have.properties({'heresy': 42, 'combo' : 42});
+      done();
+    });
+    it('Manager should be exist', function(done){
+      var man = mWorld.getTestManager();
+      should.exist(man);
+      man.isTestManager().should.be.equal(true);
       done();
     });
   });

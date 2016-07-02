@@ -4,6 +4,7 @@ var util = require('util');
 
 var IteratingSystem = libRequire('system/iteratingSystem');
 var IntervalIteratingSystem = libRequire('system/intervalIteratingSystem');
+var Manager = libRequire('manager/manager');
 var exp = module.exports;
 
 /**
@@ -43,4 +44,23 @@ ExtendSystem.prototype.initialize = function(){
 };
 ExtendSystem.prototype.processEntity = function(entity){
 	eObj.ExtendComp.incMagic(1);
+};
+
+/**
+ * Manager Example
+ */
+
+TestManager = exp.TestManager = function(){
+	Manager.call(this);
+
+	this._name = "TestManager";
+};
+
+util.inherits(TestManager, Manager);
+
+TestManager.prototype.insert = function(id){};
+
+TestManager.prototype.remove = function(id){};
+TestManager.prototype.isTestManager = function(){
+	return true;
 };

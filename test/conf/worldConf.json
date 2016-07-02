@@ -27,7 +27,14 @@
 			"path" : "../mockData"
 		}
 	],
-	"OptManagers":[],
+	"OptManagers":[
+		{
+			"name" : "TestManager",
+			"type": "Module",
+			"fileExtension": "js",
+			"path" : "../mockData"
+		}
+	],
 	"Archetypes": [
 		{
 			"type": "Class",

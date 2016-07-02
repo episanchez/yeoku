@@ -83,7 +83,6 @@ describe('Component Features Testing', function() {
     });
     it('Add a component to an entity with init values', function(done){
       componentManager.addComponentByName(entity, 'WarriorComp', {heresy: 42, combo: 42});
-      console.log(entity);
       should.exist(entity["WarriorComp"]);
       (entity['WarriorComp']).should.have.properties({heresy:42, combo: 42});
       done();
