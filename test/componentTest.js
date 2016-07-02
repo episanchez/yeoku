@@ -26,7 +26,7 @@ describe('Component Features Testing', function() {
       should.exist(genericObject);
       firstInstance = Object.create(genericObject);
       secondInstance = Object.create(genericObject);
-      
+
       should.exist(firstInstance);
       should.exist(secondInstance);
       done();
@@ -81,11 +81,18 @@ describe('Component Features Testing', function() {
       (lc[0]).should.be.equal(1);
       done();
     });
+    it('Add a component to an entity with init values', function(done){
+      componentManager.addComponentByName(entity, 'WarriorComp', {heresy: 42, combo: 42});
+      console.log(entity);
+      should.exist(entity["WarriorComp"]);
+      (entity['WarriorComp']).should.have.properties({heresy:42, combo: 42});
+      done();
+    });
     it('Remove a component to an entity', function(done){
       componentManager.removeComponentByName(entity, 'MageComp');
       should.not.exist(entity['MageComp']);
       var lc = componentManager.getAllComponentsByUID(entity.uid);
-      lc.length.should.be.equal(0);
+      lc.length.should.be.equal(1);
       done();
     });
     it('Remove a component into componentManager', function(done){
