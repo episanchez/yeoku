@@ -37,7 +37,7 @@ describe('Entity Features Testing', function(){
       	var MageComp = {name:'MageComp', attributes:{mana:10, flux:12}};
       	var wcf = libRequire('component/componentBuilder').createComponentFromJson(WarriorComp);
       	var mcf = libRequire('component/componentBuilder').createComponentFromJson(MageComp);
-      	
+
       	world.getComponentManager().create(mcf);
       	world.getComponentManager().create(wcf);
 		it('Archetype : existence features', function(done){
@@ -106,7 +106,6 @@ describe('Entity Features Testing', function(){
 			should.exist(entityManager.insert);
 			should.exist(entityManager.remove);
 			should.exist(entityManager.getEntityById);
-			should.exist(entityManager.isActive);
 			should.exist(entityManager.synchronize);
 			done();
 		});
