@@ -153,21 +153,6 @@ To simplify the components making, you could create a json components' module, y
 }
 ```
 
-#### Build Your Component separatly of WorldBuilder With ComponentBuilder
-
-If you want to build your component separatly of WorldBuilder, you can use ComponentBuilder. When you object is built, you can create instances of this one with "Object.create(genericObject)".
-
-```javascript
-var ComponentBuilder = require('yeoku').ComponentBuilder;
-
-var lc = ComponentBuilder.buildComponentFromFile(__dirname + 'ComponentExample.json');
-
-// First Instance
-var c1 = Object.create(lc);
-// Second Instance
-var c2 = Object.create(lc);
-```
-
 #### Add or Delete a Component
 
 If you want add or delete a component of your world, you have to use the component manager, this one add or delete the component and add or delete component instances.
@@ -180,7 +165,7 @@ var world = new World();
 var lc = ComponentBuilder.buildComponentFromFile(__dirname + 'ComponentExample.json');
 
 // Add your component to the manager
-world.getComponentManager().create(lc);
+world.getComponentManager().create(lc, "name");
 world.getComponentManager().getComponentTypeByName("ComponentExample"); // give the component type
 
 // Remove your component to the manager
@@ -298,11 +283,13 @@ world.getEntityManager().createEntity();
 
 ##### Create Entity With Archetype
 
-You can create an entity with the name of the archetype as "Player" or "Mob" , if you loaded it before.
+You can create an entity with the name of the archetype as "Player" or "Mob" and init values of your archetype.
 
 ```javascript
-// ... {world}
+// without init values
 testWorld.getEntityManager().createEntityWithArchetypeName('ArchetypeExample');
+// with init values
+testWorld.getEntityManager().createEntityWithArchetypeName('ArchetypeExample', {WarriorComp: {heresy : 42, combo : 42}, MageComp : {mana : 21, flux : 21}});
 ```
 
 ##### Add or Delete Component to the Entity
@@ -310,11 +297,14 @@ testWorld.getEntityManager().createEntityWithArchetypeName('ArchetypeExample');
 You can add a component to an entity with the next methods : addComponent and removeComponent of your Entity instances.
 
 ```javascript
+// BasicComponent : {rawData : "BasicComponent", intData: 42}
 world.getEntityManager().createEntity();
 
 var soldier = world.getEntityManager().getEntityById(0); // Give the entity last created
 // Add the component to your entity component's set and your component Manager.
 soldier.addComponent("BasicComponent");
+// Add Component with init values
+soldier.addComponent("BasicComponent", {rawData : "rawData", intData : 42});
 soldier.hasComponent("BasicComponent"); // Return true
 
 // Remove the component to your entity component's set and your component Manager.
