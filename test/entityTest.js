@@ -44,8 +44,6 @@ describe('Entity Features Testing', function(){
 					mcf = {res : object, name : name};
 				});
 
-				console.log(';k : '  + wcf.res);
-
       	world.getComponentManager().create(mcf.res, mcf.name);
       	world.getComponentManager().create(wcf.res, wcf.name);
 		it('Archetype : existence features', function(done){
@@ -132,10 +130,19 @@ describe('Entity Features Testing', function(){
 			(entity["MageComp"]).should.have.properties({mana:42, flux:15});
 			done();
 		});
+		it('The Archetype entity should be added to the manager with defaut values and init values', function(done){
+			entityManager.createEntityWithArchetypeName('ArchetypeExample', {WarriorComp: {heresy : 84, combo : 84}, MageComp : {mana : 168, flux : 168}});
+			var entity = entityManager.getEntityById(2);
+			should.exist(entity["WarriorComp"]);
+			should.exist(entity["MageComp"]);
+			(entity["WarriorComp"]).should.have.properties({heresy:84, combo:84});
+			(entity["MageComp"]).should.have.properties({mana:168, flux:168});
+			done();
+		});
 		it('The Archetype entity should be added to the manager without default value', function(done){
 			world.getArchetypeManager().addArchetype(noDefaultValueArch);
 			entityManager.createEntityWithArchetypeName('noDefaultValue');
-			var entity = entityManager.getEntityById(2);
+			var entity = entityManager.getEntityById(3);
 			should.exist(entity["WarriorComp"]);
 			should.exist(entity["MageComp"]);
 			(entity["WarriorComp"]).should.have.properties({heresy:10, combo:0});
