@@ -35,11 +35,19 @@ describe('Entity Features Testing', function(){
 
 	  	var WarriorComp = {name:'WarriorComp', attributes:{heresy:10, combo:0}};
       	var MageComp = {name:'MageComp', attributes:{mana:10, flux:12}};
-      	var wcf = libRequire('component/componentBuilder').createComponentFromJson(WarriorComp);
-      	var mcf = libRequire('component/componentBuilder').createComponentFromJson(MageComp);
+      	var wcf, mcf = null;
 
-      	world.getComponentManager().create(mcf);
-      	world.getComponentManager().create(wcf);
+				libRequire('component/componentBuilder').createComponentFromJson(WarriorComp, function(object, name){
+					wcf = {res : object, name : name};
+				});
+      	libRequire('component/componentBuilder').createComponentFromJson(MageComp, function(object, name){
+					mcf = {res : object, name : name};
+				});
+
+				console.log(';k : '  + wcf.res);
+
+      	world.getComponentManager().create(mcf.res, mcf.name);
+      	world.getComponentManager().create(wcf.res, wcf.name);
 		it('Archetype : existence features', function(done){
 			should.exist(archetype);
 			should.exist(archetype.getComponents);

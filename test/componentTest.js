@@ -24,15 +24,16 @@ describe('Component Features Testing', function() {
       genericObject = componentBuilder.buildComponentFromFile(__dirname + '/conf/componentExample.json');
 
       should.exist(genericObject);
-      firstInstance = Object.create(genericObject);
-      secondInstance = Object.create(genericObject);
+      firstInstance = new genericObject();
+      secondInstance = new genericObject();
 
       should.exist(firstInstance);
       should.exist(secondInstance);
       done();
     });
+
     it('ComponentBuilder generate new independant instances', function(done){
-      firstInstance.attr1 = 89;
+      firstInstance.setAttr1(89);
       firstInstance.should.have.property('attr1', 89);
       secondInstance.should.have.property('attr1', 20);
       done();
@@ -61,12 +62,17 @@ describe('Component Features Testing', function() {
       var WarriorComp = {name:'WarriorComp', attributes:{heresy:10, combo:0}};
       var MageComp = {name:'MageComp', attributes:{mana:10, flux:12}};
 
-      var wcf = libRequire('component/componentBuilder').createComponentFromJson(WarriorComp);
-      var mcf = libRequire('component/componentBuilder').createComponentFromJson(MageComp);
+      libRequire('component/componentBuilder').createComponentFromJson(WarriorComp, function(object, name){
+        wcf = {res : object, name : name};
+      });
+      libRequire('component/componentBuilder').createComponentFromJson(MageComp, function(object, name){
+        mcf = {res : object, name : name};
+      });
+
       should.exist(mcf);
       should.exist(wcf);
-      componentManager.create(wcf);
-      componentManager.create(mcf);
+      componentManager.create(wcf.res, wcf.name);
+      componentManager.create(mcf.res, mcf.name);
 
       should.exist(componentManager.getComponentTypeByName('WarriorComp'));
       should.exist(componentManager.getComponentTypeByName('MageComp'));
